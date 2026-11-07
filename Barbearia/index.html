@@ -1,0 +1,2471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; img-src https: data:; style-src 'unsafe-inline'; font-src data:; media-src https:; connect-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'">
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbearia Ursic | Seminário - Curitiba</title>
+  <meta name="description" content="Barbearia Ursic no Seminário, Curitiba. Cortes precisos, barba na toalha quente e atendimento premium. Agendamento 100% online pelo site.">
+  <style>
+    :root {
+      --primary: #22C55E;
+      --primary-hover: #16a34a;
+      --secondary: #1F1F1F;
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --surface-border: #2A2A2A;
+      --text: #FFFFFF;
+      --text-muted: #A1A1AA;
+      --font: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-theme="light"] {
+      --bg: #F5F5F7;
+      --surface: #FFFFFF;
+      --surface-border: #E5E7EB;
+      --secondary: #E5E7EB;
+      --text: #111827;
+      --text-muted: #6B7280;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-family: var(--font); background: var(--bg); color: var(--text); }
+    body { min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font-family: inherit; color: inherit; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; width: 100%; }
+
+    /* Header Apple Style */
+    header { position: sticky; top: 0; z-index: 60; background: rgba(10, 10, 10, 0.85); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--surface-border); }
+    [data-theme="light"] header { background: rgba(245, 245, 247, 0.85); }
+    .header-nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; display: flex; align-items: center; gap: 0.5rem; }
+    .logo-badge { background: var(--primary); color: #000; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 900; }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+    .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: var(--transition); border-bottom: 2px solid transparent; padding: 6px 0; }
+    .nav-link:hover, .nav-link.active { color: var(--text); border-color: var(--primary); }
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .btn-icon { background: var(--surface); border: 1px solid var(--surface-border); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; transition: var(--transition); position: relative; }
+    .btn-icon:hover { border-color: var(--primary); transform: scale(1.05); }
+    .user-pill { display: flex; align-items: center; gap: 0.5rem; background: var(--surface); border: 1px solid var(--surface-border); padding: 0.35rem 0.85rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
+    .user-pill:hover { border-color: var(--primary); }
+    .badge-count { position: absolute; top: -2px; right: -2px; background: var(--primary); color: #000; font-size: 0.7rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; }
+    .btn-primary { background: var(--primary); color: #052e16; font-weight: 700; font-size: 0.875rem; padding: 0.65rem 1.25rem; border-radius: 9999px; border: none; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-primary:hover { background: var(--primary-hover); color: #000; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35); }
+    .btn-outline { background: transparent; border: 1px solid var(--surface-border); font-size: 0.875rem; font-weight: 600; padding: 0.65rem 1.25rem; border-radius: 9999px; cursor: pointer; transition: var(--transition); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-danger-outline { background: transparent; border: 1px solid #ef4444; color: #ef4444; font-size: 0.75rem; font-weight: 600; padding: 0.35rem 0.75rem; border-radius: 6px; cursor: pointer; transition: var(--transition); }
+    .btn-danger-outline:hover { background: #ef4444; color: #fff; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--text); cursor: pointer; }
+
+    /* Pages Management */
+    section[data-page] { display: none; padding: 3rem 0; }
+    section[data-page].active-page { display: block; animation: pageFade 0.35s ease; }
+    @keyframes pageFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Asymmetric Hero */
+    .hero-wrapper { padding: 4rem 0 3rem; position: relative; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: center; }
+    .hero-rating { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--surface); border: 1px solid var(--surface-border); padding: 0.4rem 0.9rem; border-radius: 9999px; font-size: 0.8rem; margin-bottom: 1.25rem; }
+    .stars { color: #FBBF24; letter-spacing: 2px; }
+    .hero-title { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.08; letter-spacing: -1.5px; margin-bottom: 1.2rem; }
+    .hero-title span { color: var(--primary); }
+    .hero-lead { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; max-width: 520px; }
+    
+    /* Interactive Hero Selector */
+    .hero-selector { background: var(--surface); border: 1px solid var(--surface-border); padding: 1.25rem; border-radius: 18px; margin-bottom: 2rem; }
+    .hero-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .chip { background: var(--secondary); border: 1px solid var(--surface-border); font-size: 0.8rem; padding: 0.4rem 0.85rem; border-radius: 9999px; cursor: pointer; font-weight: 600; transition: var(--transition); }
+    .chip.active { background: var(--primary); color: #000; border-color: var(--primary); }
+    .hero-preview { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .hero-preview-text h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .hero-preview-text p { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Asymmetric Collage */
+    .collage { position: relative; height: 480px; width: 100%; }
+    .collage-img { position: absolute; border-radius: 20px; object-fit: cover; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 2px solid var(--surface-border); }
+    .img-1 { width: 70%; height: 350px; top: 0; right: 0; z-index: 1; }
+    .img-2 { width: 55%; height: 260px; bottom: 0; left: 0; z-index: 2; border: 3px solid var(--bg); }
+    .collage-badge { position: absolute; bottom: 40px; right: 20px; z-index: 3; background: var(--primary); color: #000; padding: 1rem 1.4rem; border-radius: 14px; font-weight: 800; font-size: 0.85rem; box-shadow: 0 10px 25px rgba(34,197,94,0.3); }
+
+    /* Solid Color Block Highlight Section */
+    .solid-highlight { background: var(--primary); color: #052e16; padding: 4rem 0; border-radius: 28px; margin: 3rem 0; }
+    .solid-inner { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; text-align: center; }
+    .stat-card h3 { font-size: 2.8rem; font-weight: 900; line-height: 1; margin-bottom: 0.4rem; color: #000; }
+    .stat-card p { font-size: 0.95rem; font-weight: 600; color: #064e3b; }
+
+    /* Section Titles */
+    .section-head { text-align: center; max-width: 650px; margin: 0 auto 3rem; }
+    .section-head .tag { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--primary); font-weight: 800; margin-bottom: 0.5rem; display: block; }
+    .section-head h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 0.8rem; }
+    .section-head p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* Quiz Widget */
+    .quiz-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 24px; padding: 2.5rem; max-width: 720px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.25); }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: pageFade 0.3s ease; }
+    .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .quiz-btn { background: var(--secondary); border: 1px solid var(--surface-border); padding: 1.2rem; border-radius: 14px; text-align: left; cursor: pointer; transition: var(--transition); }
+    .quiz-btn:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .quiz-result { text-align: center; padding: 1.5rem 0; }
+
+    /* Calculator */
+    .calc-box { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 24px; padding: 2.5rem; max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; }
+    .calc-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .calc-item { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; background: var(--secondary); border-radius: 12px; border: 1px solid transparent; cursor: pointer; transition: var(--transition); }
+    .calc-item.checked { border-color: var(--primary); background: rgba(34, 197, 94, 0.08); }
+    .calc-total-box { background: var(--secondary); border-radius: 18px; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; text-align: center; border: 1px solid var(--surface-border); }
+    .calc-amount { font-size: 3rem; font-weight: 900; color: var(--primary); margin: 1rem 0; }
+
+    /* Before/After Slider */
+    .compare-wrapper { max-width: 820px; margin: 0 auto; border-radius: 24px; overflow: hidden; position: relative; height: 420px; border: 1px solid var(--surface-border); user-select: none; }
+    .compare-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+    .compare-overlay { position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden; border-right: 2px solid var(--primary); }
+    .compare-overlay img { width: 820px; max-width: none; height: 100%; object-fit: cover; }
+    .compare-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #000; display: grid; place-items: center; font-size: 1.2rem; cursor: ew-resize; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+
+    /* Flip Cards */
+    .flip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .flip-card { height: 320px; perspective: 1000px; cursor: pointer; }
+    .flip-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
+    .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid var(--surface-border); background: var(--surface); }
+    .flip-back { transform: rotateY(180deg); background: var(--secondary); text-align: left; align-items: flex-start; }
+
+    /* Timeline Steps */
+    .timeline-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .timeline-tab { background: var(--surface); border: 1px solid var(--surface-border); padding: 0.75rem 1.4rem; border-radius: 9999px; cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: var(--transition); }
+    .timeline-tab.active { background: var(--primary); color: #000; border-color: var(--primary); }
+    .timeline-content-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 20px; padding: 2.5rem; max-width: 780px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+
+    /* Filterable FAQ */
+    .faq-search-wrap { max-width: 600px; margin: 0 auto 2rem; position: relative; }
+    .faq-input { width: 100%; padding: 1rem 1.25rem 1rem 3rem; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 9999px; font-size: 0.95rem; }
+    .faq-input:focus { outline: none; border-color: var(--primary); }
+    .faq-icon-search { position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 14px; overflow: hidden; }
+    .faq-q { padding: 1.25rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-a { padding: 0 1.25rem 1.25rem; color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; display: none; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-q { color: var(--primary); }
+
+    /* Catalog / Store / Products */
+    .catalog-filters { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
+    .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+    .item-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); }
+    .item-card:hover { transform: translateY(-4px); border-color: var(--primary); }
+    .item-img { height: 180px; width: 100%; object-fit: cover; }
+    .item-body { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .item-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .item-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; flex-grow: 1; line-height: 1.5; }
+    .item-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+    .item-price { font-weight: 800; font-size: 1.15rem; }
+
+    /* Shopping Cart Drawer */
+    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 100; opacity: 0; pointer-events: none; transition: var(--transition); }
+    .cart-overlay.open { opacity: 1; pointer-events: auto; }
+    .cart-drawer { position: fixed; right: -420px; top: 0; bottom: 0; width: 100%; max-width: 420px; background: var(--bg); border-left: 1px solid var(--surface-border); z-index: 101; display: flex; flex-direction: column; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); padding: 1.5rem; }
+    .cart-drawer.open { right: 0; }
+    .cart-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 1rem; border-bottom: 1px solid var(--surface-border); }
+    .cart-items { flex-grow: 1; overflow-y: auto; padding: 1rem 0; display: flex; flex-direction: column; gap: 1rem; }
+    .cart-item { display: flex; gap: 0.75rem; align-items: center; background: var(--surface); padding: 0.75rem; border-radius: 12px; }
+    .cart-item-info { flex-grow: 1; }
+    .cart-qty-ctrl { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.4rem; }
+    .cart-qty-btn { width: 24px; height: 24px; border-radius: 6px; background: var(--secondary); border: none; cursor: pointer; font-weight: bold; }
+    .cart-footer { border-top: 1px solid var(--surface-border); padding-top: 1rem; }
+    .cart-form-input { width: 100%; background: var(--surface); border: 1px solid var(--surface-border); padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 0.5rem; }
+
+    /* Auth & Booking Hub System */
+    .auth-tabs { display: flex; border-bottom: 1px solid var(--surface-border); margin-bottom: 1.5rem; }
+    .auth-tab-btn { flex: 1; padding: 0.75rem; background: none; border: none; font-weight: 700; font-size: 0.9rem; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: var(--transition); }
+    .auth-tab-btn.active { color: var(--primary); border-color: var(--primary); }
+    
+    .schedule-grid-wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2rem; align-items: start; }
+    .slot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 0.5rem; margin-top: 0.5rem; }
+    .slot-pill { padding: 0.6rem 0.2rem; text-align: center; border-radius: 8px; background: var(--secondary); border: 1px solid var(--surface-border); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: var(--transition); }
+    .slot-pill:hover { border-color: var(--primary); }
+    .slot-pill.active { background: var(--primary); color: #000; border-color: var(--primary); font-weight: 800; }
+    .slot-pill.disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; pointer-events: none; }
+    
+    .appointment-card { background: var(--secondary); border: 1px solid var(--surface-border); border-radius: 12px; padding: 1rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; transition: var(--transition); }
+    .appointment-card:hover { border-color: var(--primary); }
+    .status-badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; background: rgba(34, 197, 94, 0.2); color: var(--primary); }
+    .status-badge.canceled { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+    /* Admin Styles */
+    .admin-pill { background: rgba(34, 197, 94, 0.15); border: 1px solid var(--primary); color: var(--primary); font-weight: 700; }
+    .admin-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 18px; padding: 1.5rem; }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .admin-table th { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--surface-border); color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; }
+    .admin-table td { padding: 0.75rem; border-bottom: 1px solid var(--surface-border); vertical-align: middle; }
+    .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; cursor: pointer; inset: 0; background-color: var(--secondary); border: 1px solid var(--surface-border); border-radius: 24px; transition: var(--transition); }
+    .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: #fff; border-radius: 50%; transition: var(--transition); }
+    input:checked + .toggle-slider { background-color: var(--primary); border-color: var(--primary); }
+    input:checked + .toggle-slider:before { transform: translateX(20px); background-color: #000; }
+    .date-tag { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--secondary); border: 1px solid var(--surface-border); padding: 0.35rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; margin: 0.25rem; }
+    .date-tag button { background: none; border: none; color: #ef4444; cursor: pointer; font-weight: bold; }
+
+    /* Modals */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 95; display: none; place-items: center; }
+    .modal-overlay.open { display: grid; }
+    .modal-box { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 20px; width: 90%; max-width: 460px; padding: 2rem; position: relative; max-height: 90vh; overflow-y: auto; }
+
+    /* Toast Notification */
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: #000; padding: 0.9rem 1.4rem; border-radius: 12px; font-weight: 700; font-size: 0.9rem; z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: var(--transition); pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* Footer */
+    footer { background: var(--surface); border-top: 1px solid var(--surface-border); padding: 4rem 0 2rem; margin-top: auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-col h4 { font-size: 1rem; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; color: var(--text-muted); }
+    .footer-bottom { border-top: 1px solid var(--surface-border); padding-top: 1.5rem; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-selector { text-align: left; }
+      .collage { height: 360px; max-width: 500px; margin: 0 auto; }
+      .calc-box, .timeline-content-card, .schedule-grid-wrap { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-links.mobile-open { display: flex; flex-direction: column; position: absolute; top: 68px; left: 0; right: 0; background: var(--bg); padding: 2rem; border-bottom: 1px solid var(--surface-border); gap: 1.25rem; }
+      .mobile-menu-btn { display: block; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Header -->
+  <header>
+    <div class="container header-nav">
+      <a href="#home" class="logo" data-nav="home">
+        <span style="color:var(--primary)">URSIC</span>BARBER
+        <span class="logo-badge">4.9 ★</span>
+      </a>
+
+      <ul class="nav-links" id="mainMenu">
+        <li><a class="nav-link active" data-nav="home">Início</a></li>
+        <li><a class="nav-link" data-nav="servicos">Serviços & Pacotes</a></li>
+        <li><a class="nav-link" data-nav="produtos">Produtos & Loja</a></li>
+        <li><a class="nav-link" data-nav="agendamento">Agendamento Online</a></li>
+        <li><a class="nav-link" data-nav="sobre">Sobre & Local</a></li>
+        <li id="adminNavLi" style="display: none;"><a class="nav-link" data-nav="admin" id="adminNavLink">Painel ADM</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn-icon" id="themeToggle" title="Alterar Tema">◐</button>
+        <button class="user-pill admin-pill" id="adminHeaderBtn" title="Área Administrativa" style="display: none;">
+          <span>⚙️</span>
+          <span id="adminHeaderLabel">ADM</span>
+        </button>
+        <div class="user-pill" id="authBtn">
+          <span id="userIconDisplay">👤</span>
+          <span id="navUserName">Entrar / Criar Conta</span>
+        </div>
+        <button class="btn-icon" id="cartOpenBtn" title="Ver Carrinho">
+          🛒
+          <span class="badge-count" id="cartBadge">0</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PÁGINA 1: INÍCIO -->
+  <section data-page="home" class="active-page">
+    <div class="container">
+      
+      <!-- HERO COM COLAGEM ASSIMÉTRICA E SELETOR -->
+      <div class="hero-wrapper">
+        <div class="hero-grid">
+          <div>
+            <div class="hero-rating">
+              <span class="stars">★★★★★</span>
+              <strong>4.9</strong> (348 avaliações reais no Google)
+            </div>
+            <h1 class="hero-title">O padrão de barbearia que <span>Curitiba</span> reconhece.</h1>
+            <p class="hero-lead">No coração do Seminário. Experiência precisa de corte, toalha quente e atendimento em nível superior com sistema próprio de agendamento online.</p>
+
+            <!-- Seletor Interativo Hero -->
+            <div class="hero-selector">
+              <div style="font-size: 0.85rem; font-weight:700; margin-bottom: 0.6rem; color:var(--text-muted)">O QUE VOCÊ PRECISA HOJE?</div>
+              <div class="hero-chips" id="heroChips">
+                <button class="chip active" data-role="corte">Cabelo Degradê</button>
+                <button class="chip" data-role="barba">Barboterapia</button>
+                <button class="chip" data-role="combo">Combo Completo</button>
+                <button class="chip" data-role="evento">Dia do Noivo</button>
+              </div>
+              <div class="hero-preview">
+                <div class="hero-preview-text">
+                  <h4 id="heroPreviewTitle">Corte Degradê na Navalha</h4>
+                  <p id="heroPreviewDesc">Técnica apurada, visagismo e finalização premium.</p>
+                </div>
+                <button class="btn-primary" id="heroPreviewCta" data-nav="agendamento">Agendar no Site</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Colagem Assimétrica -->
+          <div class="collage">
+            <img class="collage-img img-1" src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=700&q=80" alt="Corte de cabelo masculino barbearia">
+            <img class="collage-img img-2" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80" alt="Barbeiro navalha acabamento">
+            <div class="collage-badge">
+              R. Bpo. Dom José, 2550<br><span style="font-size:0.75rem; font-weight:500;">Seminário, Curitiba - PR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO DE COR SÓLIDA COM DESTAQUES -->
+      <div class="solid-highlight">
+        <div class="container solid-inner">
+          <div class="stat-card">
+            <h3>4.9 ★</h3>
+            <p>Nota Oficial no Google</p>
+          </div>
+          <div class="stat-card">
+            <h3>348+</h3>
+            <p>Avaliações de Clientes Reais</p>
+          </div>
+          <div class="stat-card">
+            <h3>Seminário</h3>
+            <p>Localização Privilegiada</p>
+          </div>
+          <div class="stat-card">
+            <h3>100% Online</h3>
+            <p>Agendamento Direto no Site</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO 2: MINI QUIZ DE RECOMENDAÇÃO -->
+      <div style="padding: 3rem 0;">
+        <div class="section-head">
+          <span class="tag">Descubra seu perfil</span>
+          <h2>Qual é o ritual ideal para você?</h2>
+          <p>Responda 3 perguntas rápidas e receba a recomendação exata para seu estilo.</p>
+        </div>
+
+        <div class="quiz-card" id="quizBox">
+          <div class="quiz-step active" data-step="1">
+            <span style="font-size:0.8rem; color:var(--primary); font-weight:700;">PASSO 1 DE 3</span>
+            <h3 style="margin: 0.5rem 0 1rem;">Com qual frequência você costuma cuidar da barba ou cabelo?</h3>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-answer="Frequência Semanal / Quinzenal">Toda semana ou a cada 15 dias</button>
+              <button class="quiz-btn" data-answer="Frequência Mensal">Apenas uma vez ao mês</button>
+              <button class="quiz-btn" data-answer="Eventos Especiais">Apenas para eventos ou ocasiões</button>
+              <button class="quiz-btn" data-answer="Primeira Vez">Primeira vez cuidando profissionalmente</button>
+            </div>
+          </div>
+          <div class="quiz-step" data-step="2">
+            <span style="font-size:0.8rem; color:var(--primary); font-weight:700;">PASSO 2 DE 3</span>
+            <h3 style="margin: 0.5rem 0 1rem;">Qual a sua prioridade principal ao sentar na cadeira?</h3>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-answer="Alinhamento e Praticidade">Visual alinhado e corte rápido</button>
+              <button class="quiz-btn" data-answer="Relaxamento Total">Relaxar, toalha quente e massagem facial</button>
+              <button class="quiz-btn" data-answer="Renovação Completa">Mudança de visual e consultoria</button>
+              <button class="quiz-btn" data-answer="Cuidado com a Pele">Tratar irritações e foliculite da barba</button>
+            </div>
+          </div>
+          <div class="quiz-step" data-step="3">
+            <span style="font-size:0.8rem; color:var(--primary); font-weight:700;">PASSO 3 DE 3</span>
+            <h3 style="margin: 0.5rem 0 1rem;">Qual tipo de acabamento você prefere?</h3>
+            <div class="quiz-options">
+              <button class="quiz-btn" data-answer="Navalhado Tradicional">Fade/Navalhado bem rente</button>
+              <button class="quiz-btn" data-answer="Tesoura Clássico">Corte social na tesoura, mais clássico</button>
+              <button class="quiz-btn" data-answer="Barboterapia Terapêutica">Barba longa modelada e hidratada</button>
+              <button class="quiz-btn" data-answer="Linhas Perfeitas">Alinhamento cirúrgico de contorno</button>
+            </div>
+          </div>
+          <div class="quiz-step" data-step="result">
+            <div class="quiz-result">
+              <div style="font-size:3rem; margin-bottom: 0.5rem;">✨</div>
+              <h3 id="quizResultTitle">Combo Ursic Signature</h3>
+              <p id="quizResultDesc" style="color:var(--text-muted); max-width:450px; margin: 0.5rem auto 1.5rem;">Corte com visagismo + Barboterapia completa com toalha a vapor e óleos essenciais.</p>
+              <div style="display:flex; justify-content:center; gap:1rem;">
+                <button class="btn-primary" id="quizSendBooking">Agendar Pelo Site</button>
+                <button class="btn-outline" id="quizReset">Refazer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO 3: CALCULADORA / SIMULADOR EM TEMPO REAL -->
+      <div style="padding: 3rem 0;">
+        <div class="section-head">
+          <span class="tag">Transparência Total</span>
+          <h2>Simulador de Pacote Sob Medida</h2>
+          <p>Selecione os procedimentos que deseja realizar e calcule o investimento em tempo real.</p>
+        </div>
+
+        <div class="calc-box">
+          <div class="calc-list" id="calcChecklist">
+            <label class="calc-item checked">
+              <input type="checkbox" checked value="55" data-name="Corte Masculino Premium" style="accent-color:var(--primary);">
+              <div>
+                <strong>Corte Masculino Premium</strong>
+                <p style="font-size:0.8rem; color:var(--text-muted)">Lavagem, visagismo e finalização</p>
+              </div>
+              <span>R$ 55,00</span>
+            </label>
+            <label class="calc-item checked">
+              <input type="checkbox" checked value="45" data-name="Barboterapia com Ozônio" style="accent-color:var(--primary);">
+              <div>
+                <strong>Barboterapia c/ Ozônio</strong>
+                <p style="font-size:0.8rem; color:var(--text-muted)">Toalha quente, hidratação e navalha</p>
+              </div>
+              <span>R$ 45,00</span>
+            </label>
+            <label class="calc-item">
+              <input type="checkbox" value="25" data-name="Design de Sobrancelha" style="accent-color:var(--primary);">
+              <div>
+                <strong>Design de Sobrancelha</strong>
+                <p style="font-size:0.8rem; color:var(--text-muted)">Alinhamento natural da expressão</p>
+              </div>
+              <span>R$ 25,00</span>
+            </label>
+            <label class="calc-item">
+              <input type="checkbox" value="35" data-name="Esfoliação Facial Express" style="accent-color:var(--primary);">
+              <div>
+                <strong>Esfoliação Facial Express</strong>
+                <p style="font-size:0.8rem; color:var(--text-muted)">Desobstrução dos poros e refrescância</p>
+              </div>
+              <span>R$ 35,00</span>
+            </label>
+            <label class="calc-item">
+              <input type="checkbox" value="40" data-name="Camuflagem de Grisalhos" style="accent-color:var(--primary);">
+              <div>
+                <strong>Camuflagem de Grisalhos</strong>
+                <p style="font-size:0.8rem; color:var(--text-muted)">Efeito discreto e natural</p>
+              </div>
+              <span>R$ 40,00</span>
+            </label>
+          </div>
+
+          <div class="calc-total-box">
+            <div>
+              <span style="font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">Investimento Estimado</span>
+              <div class="calc-amount" id="calcTotalValue">R$ 100,00</div>
+              <p style="font-size:0.85rem; color:var(--text-muted);" id="calcSelectedCount">2 serviços selecionados</p>
+            </div>
+            <button class="btn-primary" id="calcBookBtn" style="justify-content:center; width:100%;">Reservar Horário Agora</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO 4: COMPARADOR ANTES / DEPOIS INTERATIVO -->
+      <div style="padding: 3rem 0;">
+        <div class="section-head">
+          <span class="tag">Precisão & Maestria</span>
+          <h2>Compare a Transformação</h2>
+          <p>Arraste o cursor central para ver a diferença do acabamento da Barbearia Ursic.</p>
+        </div>
+
+        <div class="compare-wrapper" id="compareSlider">
+          <img class="compare-img" src="https://images.unsplash.com/photo-1517832606589-7629c3397143?auto=format&fit=crop&w=820&q=80" alt="Depois - Corte e barba impecáveis">
+          <div class="compare-overlay" id="compareOverlay">
+            <img src="https://images.unsplash.com/photo-1507081323647-4d2504a4b919?auto=format&fit=crop&w=820&q=80" alt="Antes - Sem alinhamento">
+          </div>
+          <div class="compare-handle" id="compareHandle">⇄</div>
+        </div>
+      </div>
+
+      <!-- BLOCO 5: CARDS QUE VIRAM (FLIP CARDS) -->
+      <div style="padding: 3rem 0;">
+        <div class="section-head">
+          <span class="tag">Nossos Pilares</span>
+          <h2>Clique nos cards para virar e descobrir os detalhes</h2>
+          <p>O que torna a Barbearia Ursic a mais bem avaliada do Seminário (4.9 estrelas).</p>
+        </div>
+
+        <div class="flip-grid">
+          <div class="flip-card">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <span style="font-size:2.5rem; margin-bottom:1rem;">💈</span>
+                <h3 style="font-size:1.2rem; font-weight:700;">Visagismo Real</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.5rem;">Clique para ver</p>
+              </div>
+              <div class="flip-back">
+                <h4 style="color:var(--primary); margin-bottom:0.5rem;">Corte personalizado</h4>
+                <p style="font-size:0.85rem; line-height:1.6; color:var(--text-muted);">Não fazemos cortes genéricos. Analisamos formato do crânio, linha da mandíbula e estilo de vida para encontrar seu melhor visual.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <span style="font-size:2.5rem; margin-bottom:1rem;">♨️</span>
+                <h3 style="font-size:1.2rem; font-weight:700;">Barboterapia</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.5rem;">Clique para ver</p>
+              </div>
+              <div class="flip-back">
+                <h4 style="color:var(--primary); margin-bottom:0.5rem;">Ritual com Ozônio</h4>
+                <p style="font-size:0.85rem; line-height:1.6; color:var(--text-muted);">Toalhas aquecidas em vapor com aromaterapia e bactericida de ozônio. Suaviza os poros, eliminando foliculite e irritações de lâmina.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <span style="font-size:2.5rem; margin-bottom:1rem;">⏱️</span>
+                <h3 style="font-size:1.2rem; font-weight:700;">Pontualidade Britânica</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.5rem;">Clique para ver</p>
+              </div>
+              <div class="flip-back">
+                <h4 style="color:var(--primary); margin-bottom:0.5rem;">Respeito ao seu tempo</h4>
+                <p style="font-size:0.85rem; line-height:1.6; color:var(--text-muted);">Seu horário agendado é rigorosamente cumprido. Sala de espera climatizada com café espresso e chopp artesanal gelado.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <span style="font-size:2.5rem; margin-bottom:1rem;">🧼</span>
+                <h3 style="font-size:1.2rem; font-weight:700;">Biossegurança 100%</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.5rem;">Clique para ver</p>
+              </div>
+              <div class="flip-back">
+                <h4 style="color:var(--primary); margin-bottom:0.5rem;">Autoclave Hospitalar</h4>
+                <p style="font-size:0.85rem; line-height:1.6; color:var(--text-muted);">Lâminas descartadas à vista do cliente e ferramentas metálicas esterilizadas rigorosamente para garantir sua total segurança.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO 6: LINHA DO TEMPO CLICÁVEL -->
+      <div style="padding: 3rem 0;">
+        <div class="section-head">
+          <span class="tag">Processo Exclusivo</span>
+          <h2>A Experiência Ursic Passo a Passo</h2>
+          <p>Selecione cada fase para conhecer o que acontece na sua sessão.</p>
+        </div>
+
+        <div class="timeline-tabs" id="timelineTabs">
+          <button class="timeline-tab active" data-step="1">1. Diagnóstico</button>
+          <button class="timeline-tab" data-step="2">2. Execução Técnica</button>
+          <button class="timeline-tab" data-step="3">3. Ritual Relax</button>
+          <button class="timeline-tab" data-step="4">4. Finalização & Consultoria</button>
+        </div>
+
+        <div class="timeline-content-card" id="timelineContent">
+          <div>
+            <span style="color:var(--primary); font-weight:800; font-size:0.8rem;" id="tlStepNumber">ETAPA 01</span>
+            <h3 style="font-size:1.5rem; margin:0.4rem 0 1rem;" id="tlStepTitle">Diagnóstico & Alinhamento de Expectativas</h3>
+            <p style="color:var(--text-muted); line-height:1.6;" id="tlStepText">Antes da tesoura tocar no cabelo, analisamos a curvatura dos fios, redemoinhos e sugerimos o corte que valoriza seu rosto sem exigir horas de modelagem no dia a dia.</p>
+          </div>
+          <div>
+            <img id="tlStepImg" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=500&q=80" style="width:100%; height:220px; object-fit:cover; border-radius:14px;" alt="Barbeiro avaliando">
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO 7: FAQ COM BUSCA EM TEMPO REAL -->
+      <div style="padding: 3rem 0;">
+        <div class="section-head">
+          <span class="tag">Dúvidas Frequentes</span>
+          <h2>Perguntas Rápidas</h2>
+          <p>Filtre o que você precisa saber antes de nos visitar.</p>
+        </div>
+
+        <div class="faq-search-wrap">
+          <span class="faq-icon-search">🔍</span>
+          <input type="text" id="faqSearchInput" class="faq-input" placeholder="Digite para filtrar (ex: agendamento, horário, estacionamento, conta)...">
+        </div>
+
+        <div class="faq-list" id="faqAccordion">
+          <div class="faq-item" data-keywords="agendamento horario marcar hora como funciona conta cadastro">
+            <div class="faq-q">Como funciona o agendamento direto pelo site? <span>+</span></div>
+            <div class="faq-a">Você cria seu cadastro em poucos segundos diretamente aqui no site. Escolhe o serviço, profissional, data e horário livre. Seu agendamento fica salvo e confirmado em tempo real no seu painel, sem precisar mandar mensagem no WhatsApp!</div>
+          </div>
+          <div class="faq-item" data-keywords="horario funcionamento dias sabado domingo segunda">
+            <div class="faq-q">Quais são os horários de funcionamento? <span>+</span></div>
+            <div class="faq-a">Estamos abertos de Segunda a Sexta das 09:00 às 20:00 e aos Sábados das 09:00 às 17:00. Aos Domingos estamos fechados.</div>
+          </div>
+          <div class="faq-item" data-keywords="localizacao endereco onde fica seminario curitiba estacionamento">
+            <div class="faq-q">Onde fica a Barbearia Ursic e tem estacionamento? <span>+</span></div>
+            <div class="faq-a">Estamos localizados na R. Bpo. Dom José, 2550 - Seminário, Curitiba - PR. Região de fácil acesso com vagas em frente e ruas laterais tranquilas.</div>
+          </div>
+          <div class="faq-item" data-keywords="barba toalha quente produtos foliculite barboterapia">
+            <div class="faq-q">Como funciona a Barboterapia para quem tem pele sensível? <span>+</span></div>
+            <div class="faq-a">Utilizamos toalha a vapor com ozônio bactericida e óleos de emoliência natural pré-lâmina. O processo amolece os pelos e previne pelos encravados, foliculite e vermelhidão.</div>
+          </div>
+          <div class="faq-item" data-keywords="pagamento cartao pix dinheiro parcelamento">
+            <div class="faq-q">Quais formas de pagamento são aceitas? <span>+</span></div>
+            <div class="faq-a">Aceitamos PIX, cartões de crédito e débito de todas as bandeiras e dinheiro em espécie na finalização do serviço.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PÁGINA 2: SERVIÇOS & PACOTES -->
+  <section data-page="servicos">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Menu de Serviços</span>
+        <h2>Tabela Completa de Cuidados Masculinos</h2>
+        <p>Escolha o serviço individual ou combine combos com vantagens exclusivas.</p>
+      </div>
+
+      <div class="catalog-grid" id="servicesGrid">
+        <!-- Renderizado dinamicamente com botões de agendamento online -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PÁGINA 3: PRODUTOS & LOJA -->
+  <section data-page="produtos">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Loja Ursic Grooming</span>
+        <h2>Pomadas, Óleos & Cosméticos Selecionados</h2>
+        <p>Linha profissional utilizada em nossa bancada para você manter o estilo em casa.</p>
+      </div>
+
+      <div class="catalog-filters" id="productFilterButtons">
+        <button class="chip active" data-cat="all">Todos os Produtos (10)</button>
+        <button class="chip" data-cat="cabelo">Cabelo & Penteado</button>
+        <button class="chip" data-cat="barba">Cuidados com a Barba</button>
+        <button class="chip" data-cat="shaving">Shaving & Pele</button>
+      </div>
+
+      <div class="catalog-grid" id="productsGrid">
+        <!-- Itens inseridos via JavaScript com botões de compra -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PÁGINA 4: AGENDAMENTO ONLINE FUNCIONAL (SEM WHATSAPP) -->
+  <section data-page="agendamento">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Sistema Oficial Ursic</span>
+        <h2>Agendamento Online 100% no Site</h2>
+        <p>Sem filas e sem espera. Selecione, confirme e acompanhe seu histórico em tempo real.</p>
+      </div>
+
+      <!-- Alerta de Bloqueio Geral ou Barbeiro Ausente -->
+      <div id="bookingWarningNotice" style="display:none; max-width: 950px; margin: 0 auto 1.5rem; background: rgba(239, 68, 68, 0.12); border: 1px solid #ef4444; color: #f87171; padding: 1.25rem; border-radius: 16px; font-size: 0.9rem;">
+        <strong style="color: #ef4444; font-size: 1rem; display:block; margin-bottom: 0.3rem;">⚠️ Atenção com a data selecionada:</strong>
+        <span id="bookingWarningText"></span>
+      </div>
+
+      <!-- Alerta de Login se não autenticado -->
+      <div id="bookingAuthNotice" style="max-width: 950px; margin: 0 auto 1.5rem; background: rgba(34, 197, 94, 0.1); border: 1px dashed var(--primary); padding: 1.25rem; border-radius: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <strong style="color:var(--primary); font-size:1rem;">Dica: Crie ou acesse sua conta</strong>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Você pode agendar direto ou criar uma conta para ver seus agendamentos salvos a qualquer momento.</p>
+        </div>
+        <button class="btn-primary" id="openAuthFromBooking">Entrar / Criar Conta</button>
+      </div>
+
+      <div class="schedule-grid-wrap" style="max-width: 950px; margin: 0 auto;">
+        
+        <!-- Formulário de Criação de Agendamento -->
+        <div style="background:var(--surface); border:1px solid var(--surface-border); border-radius:24px; padding:2rem;">
+          <h3 style="font-size:1.25rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
+            <span>📅</span> Marcar Novo Horário
+          </h3>
+          <form id="onlineBookingForm">
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+              <div>
+                <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.4rem;">Seu Nome *</label>
+                <input type="text" id="obClientName" class="cart-form-input" placeholder="Nome Completo" required>
+              </div>
+              <div>
+                <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.4rem;">Telefone / WhatsApp *</label>
+                <input type="tel" id="obClientPhone" class="cart-form-input" placeholder="(41) 99999-9999" required>
+              </div>
+            </div>
+
+            <div style="margin-bottom:1rem;">
+              <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.4rem;">Serviço Desejado *</label>
+              <select id="obServiceSelect" class="cart-form-input" required>
+                <option value="Corte Masculino Premium" data-price="55">Corte Masculino Premium - R$ 55,00</option>
+                <option value="Barboterapia Ursic com Vapor" data-price="45">Barboterapia Ursic com Vapor - R$ 45,00</option>
+                <option value="Combo Completo (Cabelo + Barba)" data-price="90">Combo Completo (Cabelo + Barba) - R$ 90,00</option>
+                <option value="Corte Infantil Especializado" data-price="50">Corte Infantil Especializado - R$ 50,00</option>
+                <option value="Camuflagem de Cabelo / Barba" data-price="45">Camuflagem de Cabelo / Barba - R$ 45,00</option>
+                <option value="Design de Sobrancelha Masculina" data-price="25">Design de Sobrancelha Masculina - R$ 25,00</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom:1rem;">
+              <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.4rem;">Barbeiro Especialista *</label>
+              <select id="obBarberSelect" class="cart-form-input" required>
+                <option value="Qualquer Barbeiro Disponível">Qualquer Barbeiro Disponível (Mais Rápido)</option>
+                <option value="Matheus Ursic (Master Barber)">Matheus Ursic (Master Barber)</option>
+                <option value="Lucas Prado (Fade Specialist)">Lucas Prado (Fade Specialist)</option>
+                <option value="André Santana (Barba Clássica)">André Santana (Barba Clássica)</option>
+              </select>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr; gap:1rem; margin-bottom:1rem;">
+              <div>
+                <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.4rem;">Escolha a Data *</label>
+                <input type="date" id="obDateInput" class="cart-form-input" required>
+              </div>
+            </div>
+
+            <div style="margin-bottom:1.5rem;">
+              <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.4rem;">Horários Disponíveis para a data selecionada *</label>
+              <div class="slot-grid" id="slotPicker">
+                <!-- Horários gerados interativamente -->
+              </div>
+              <input type="hidden" id="obSelectedTime" required>
+            </div>
+
+            <div style="margin-bottom:1.5rem;">
+              <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.4rem;">Observação (Opcional)</label>
+              <input type="text" id="obNotes" class="cart-form-input" placeholder="Ex: Cabelo bem volumoso, pele sensível etc.">
+            </div>
+
+            <button type="submit" id="obSubmitBtn" class="btn-primary" style="width:100%; justify-content:center; padding:1rem; font-size:1rem;">Confirmar Agendamento no Site</button>
+          </form>
+        </div>
+
+        <!-- Painel Lateral: Resumo do Agendamento & Meus Horários Marcados -->
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          
+          <div style="background:var(--surface); border:1px solid var(--surface-border); border-radius:24px; padding:2rem;">
+            <h4 style="font-size:1.1rem; margin-bottom:0.8rem; color:var(--primary);">Status da Reserva</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+              Seus agendamentos são registrados no sistema do site. Não é necessário enviar mensagem ou esperar resposta no WhatsApp.
+            </p>
+            <div style="margin-top:1.25rem; padding:1rem; border-radius:12px; background:var(--secondary); font-size:0.85rem;">
+              <div>📍 <strong>Local:</strong> R. Bpo. Dom José, 2550 - Seminário</div>
+              <div style="margin-top:0.4rem;">⏱️ <strong>Tolerância:</strong> 10 minutos de cortesia</div>
+              <div style="margin-top:0.4rem;">💳 <strong>Pagamento:</strong> No local (PIX, Débito ou Crédito)</div>
+            </div>
+          </div>
+
+          <!-- Lista de Agendamentos Ativos do Usuário -->
+          <div style="background:var(--surface); border:1px solid var(--surface-border); border-radius:24px; padding:2rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h4 style="font-size:1.1rem;">Meus Horários Salvos</h4>
+              <span style="font-size:0.75rem; color:var(--text-muted);" id="appointmentsCount">0 agendados</span>
+            </div>
+            
+            <div id="appointmentsList" style="max-height: 380px; overflow-y: auto;">
+              <!-- Cards de agendamentos -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PÁGINA 5: SOBRE & LOCALIZAÇÃO REAL -->
+  <section data-page="sobre">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Localização & Informações</span>
+        <h2>Barbearia Ursic no Seminário</h2>
+        <p>Dados oficiais auditados no Google com nota máxima da região.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items:start;">
+        <div style="background:var(--surface); border:1px solid var(--surface-border); border-radius:24px; padding:2rem;">
+          <h3 style="font-size:1.3rem; margin-bottom:1rem; color:var(--primary);">Dados Oficiais</h3>
+          <p style="margin-bottom:0.8rem;"><strong>📍 Endereço:</strong><br>R. Bpo. Dom José, 2550 - Seminário, Curitiba - PR, 80440-165, Brasil</p>
+          <p style="margin-bottom:0.8rem;"><strong>⭐ Avaliação Google:</strong><br>4.9 estrelas baseadas em 348 avaliações verificadas</p>
+          <p style="margin-bottom:1.2rem;"><strong>🏷️ Categoria:</strong><br>Barbearia Tradicional e Contemporânea</p>
+          
+          <h4 style="margin: 1.5rem 0 0.8rem; font-size:1rem; border-top:1px solid var(--surface-border); padding-top:1rem;">Horários de Atendimento:</h4>
+          <ul style="list-style:none; font-size:0.85rem; display:flex; flex-direction:column; gap:0.4rem; color:var(--text-muted);">
+            <li><strong>Segunda-feira:</strong> 09:00 – 20:00</li>
+            <li><strong>Terça-feira:</strong> 09:00 – 20:00</li>
+            <li><strong>Quarta-feira:</strong> 09:00 – 20:00</li>
+            <li><strong>Quinta-feira:</strong> 09:00 – 20:00</li>
+            <li><strong>Sexta-feira:</strong> 09:00 – 20:00</li>
+            <li><strong>Sábado:</strong> 09:00 – 17:00</li>
+            <li style="color:#ef4444;"><strong>Domingo:</strong> Fechado</li>
+          </ul>
+
+          <div style="margin-top:1.5rem;">
+            <a href="https://maps.google.com/?q=R.+Bpo.+Dom+José,+2550+-+Seminário,+Curitiba+-+PR" target="_blank" rel="noopener noreferrer" class="btn-outline" style="display:inline-block; text-align:center;">Abrir Rota no Google Maps</a>
+          </div>
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--surface-border); border-radius:24px; padding:2rem;">
+          <h3 style="font-size:1.3rem; margin-bottom:1rem;">O Conceito Ursic</h3>
+          <p style="color:var(--text-muted); line-height:1.7; margin-bottom:1rem;">
+            Nascida para resgatar a elegância da barbearia artesanal sem perder a agilidade do homem moderno, a Barbearia Ursic consolidou-se como referência no bairro Seminário. 
+          </p>
+          <p style="color:var(--text-muted); line-height:1.7; margin-bottom:1.5rem;">
+            Aqui não existe fila desorganizada ou corte apressado: cada atendimento respeita rigorosos padrões de higiene, produtos homologados e foco milimétrico nos detalhes de acabamento.
+          </p>
+          <div style="border-radius:14px; overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=700&q=80" style="width:100%; height:200px; object-fit:cover;" alt="Ambiente interno da barbearia">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PÁGINA 6: PAINEL ADMINISTRATIVO (ADM) -->
+  <section data-page="admin">
+    <div class="container">
+      
+      <!-- Mensagem de Acesso Negado se o usuário conectado não for adm@adm.com -->
+      <div id="adminAccessDeniedWrapper" style="display: none; max-width: 500px; margin: 4rem auto; background: var(--surface); border: 1px solid #ef4444; border-radius: 24px; padding: 2.5rem; text-align: center;">
+        <div style="font-size: 3.5rem; margin-bottom: 0.8rem;">🔒</div>
+        <h2 style="font-size: 1.5rem; color: #ef4444; margin-bottom: 0.8rem;">Acesso Restrito ao Administrador</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">
+          Este painel é exclusivo para o administrador.
+        </p>
+        <button class="btn-primary" id="adminGoAuthBtn" style="justify-content: center; width: 100%;">Fazer Login como Administrador</button>
+      </div>
+
+      <!-- Login ADM Direto (Caso acesse com email adm@adm.com) -->
+      <div id="adminLoginWrapper" style="max-width: 440px; margin: 3rem auto; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 24px; padding: 2.5rem; text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🛡️</div>
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Acesso Gerencial ADM</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Área restrita exclusivamente para o administrador.</p>
+        
+        <form id="adminLoginForm" style="text-align: left;">
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">E-mail do Administrador</label>
+          <input type="email" id="admUserInput" class="cart-form-input" value="adm@adm.com" placeholder="adm@adm.com" required autocomplete="off">
+          
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Senha ADM</label>
+          <input type="password" id="admPassInput" class="cart-form-input" placeholder="•••••" required autocomplete="off">
+
+          <div style="background: rgba(34, 197, 94, 0.1); border: 1px dashed var(--primary); border-radius: 8px; padding: 0.6rem; font-size: 0.78rem; color: var(--primary); margin-bottom: 1.2rem;">
+            Acesso Restrito: <strong>E-mail: adm@adm.com</strong> / <strong>Senha: 12345</strong>
+          </div>
+          
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem;">Entrar no Painel ADM</button>
+        </form>
+      </div>
+
+      <!-- Dashboard ADM Completo (Visível apenas após login de adm@adm.com) -->
+      <div id="adminDashboardWrapper" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--surface-border); padding-bottom: 1.5rem;">
+          <div>
+            <span class="tag">Administração Geral</span>
+            <h2 style="font-size: 1.8rem; font-weight: 800;">Painel de Controle Ursic</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Sessão ativa: <strong>adm@adm.com</strong> (Administrador)</p>
+          </div>
+          <button class="btn-outline" id="btnAdminLogout" style="color: #ef4444; border-color: #ef4444;">Sair do Painel ADM</button>
+        </div>
+
+        <!-- Estatísticas Rápidas -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+          <div class="admin-card">
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">TOTAL DE AGENDAMENTOS</span>
+            <div id="admStatTotal" style="font-size: 2rem; font-weight: 900; color: var(--primary); margin-top: 0.3rem;">0</div>
+          </div>
+          <div class="admin-card">
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">CONFIRMADOS</span>
+            <div id="admStatConfirmed" style="font-size: 2rem; font-weight: 900; color: #38bdf8; margin-top: 0.3rem;">0</div>
+          </div>
+          <div class="admin-card">
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">STATUS DA BARBEARIA HOJE</span>
+            <div id="admStatOpenStatus" style="font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-top: 0.6rem;">Aberta Normalmente</div>
+          </div>
+          <div class="admin-card">
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">FECHAMENTO EM FERIADOS</span>
+            <div id="admStatHolidays" style="font-size: 1.2rem; font-weight: 800; color: #fbbf24; margin-top: 0.6rem;">Ativado</div>
+          </div>
+        </div>
+
+        <!-- Configurações Operacionais (Não abrir em feriados / não abrir em dias específicos) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem;">
+          
+          <!-- Bloqueio da Barbearia & Feriados -->
+          <div class="admin-card">
+            <h3 style="font-size: 1.15rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span>🛑</span> Funcionamento da Barbearia
+            </h3>
+
+            <!-- Opção de Não Abrir em Feriados -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: var(--secondary); border-radius: 12px; margin-bottom: 1.2rem;">
+              <div>
+                <strong style="display: block; font-size: 0.9rem;">Não abrir em feriados nacionais</strong>
+                <p style="font-size: 0.78rem; color: var(--text-muted);">Bloqueia automaticamente o agendamento em datas de feriados brasileiros.</p>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="admCloseOnHolidaysToggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <!-- Não abrir em dia específico (Férias, reformas, imprevistos) -->
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Registrar dia em que a barbearia NÃO vai abrir:</label>
+              <form id="admAddShopClosedForm" style="display: flex; gap: 0.5rem; margin-bottom: 0.8rem;">
+                <input type="date" id="admShopCloseDate" class="cart-form-input" style="margin-bottom: 0;" required>
+                <input type="text" id="admShopCloseReason" class="cart-form-input" style="margin-bottom: 0;" placeholder="Motivo (ex: Manutenção)" required>
+                <button type="submit" class="btn-primary" style="white-space: nowrap; padding: 0.65rem 1rem;">Fechar Dia</button>
+              </form>
+
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">Dias marcados com fechamento geral:</div>
+              <div id="admClosedShopList" style="display: flex; flex-wrap: wrap; min-height: 40px; background: var(--secondary); padding: 0.6rem; border-radius: 10px;">
+                <!-- Tags geradas via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Controle de Ausência de Barbeiros (Se algum barbeiro não vai ir) -->
+          <div class="admin-card">
+            <h3 style="font-size: 1.15rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span>✂️</span> Ausências de Barbeiros
+            </h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem;">
+              Registre se algum barbeiro vai faltar ou folgar em uma data específica. O sistema bloqueia a seleção dele no agendamento daquele dia.
+            </p>
+
+            <form id="admAddBarberAbsenceForm" style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem;">
+              <select id="admAbsenceBarberSelect" class="cart-form-input" style="margin-bottom: 0;" required>
+                <option value="">Selecione o Barbeiro</option>
+                <option value="Matheus Ursic (Master Barber)">Matheus Ursic (Master Barber)</option>
+                <option value="Lucas Prado (Fade Specialist)">Lucas Prado (Fade Specialist)</option>
+                <option value="André Santana (Barba Clássica)">André Santana (Barba Clássica)</option>
+              </select>
+              
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="date" id="admAbsenceDate" class="cart-form-input" style="margin-bottom: 0;" required>
+                <input type="text" id="admAbsenceReason" class="cart-form-input" style="margin-bottom: 0;" placeholder="Motivo (ex: Atestado / Curso)" required>
+              </div>
+
+              <button type="submit" class="btn-primary" style="justify-content: center; padding: 0.75rem;">Registrar Ausência do Barbeiro</button>
+            </form>
+
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">Barbeiros ausentes programados:</div>
+            <div id="admBarbersAbsenceList" style="max-height: 140px; overflow-y: auto; background: var(--secondary); border-radius: 10px; padding: 0.6rem; font-size: 0.82rem;">
+              <!-- Ausências listadas via JS -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tabela Completa de Agendamentos para Verificação ADM -->
+        <div class="admin-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 1.2rem;">Verificação Geral de Agendamentos</h3>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="date" id="admFilterDate" class="cart-form-input" style="margin-bottom: 0; padding: 0.4rem 0.6rem; width: auto;" title="Filtrar por data">
+              <button class="btn-outline" id="admClearFilterDate" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Ver Todos</button>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Data & Hora</th>
+                  <th>Cliente</th>
+                  <th>WhatsApp</th>
+                  <th>Serviço</th>
+                  <th>Barbeiro</th>
+                  <th>Status</th>
+                  <th>Ações ADM</th>
+                </tr>
+              </thead>
+              <tbody id="admAppointmentsTableBody">
+                <!-- Linhas inseridas pelo JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CARRINHO LATERAL (DRAWER) -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-head">
+      <h3>Seu Pedido</h3>
+      <button class="btn-icon" id="cartCloseBtn">✕</button>
+    </div>
+    
+    <div class="cart-items" id="cartItemsList">
+      <div style="text-align:center; color:var(--text-muted); margin-top:3rem;">Seu carrinho está vazio. Adicione produtos ou serviços da loja.</div>
+    </div>
+
+    <div class="cart-footer">
+      <div style="display:flex; justify-content:space-between; margin-bottom:0.8rem; font-weight:700;">
+        <span>Subtotal:</span>
+        <span id="cartSubtotal">R$ 0,00</span>
+      </div>
+      <form id="cartCheckoutForm">
+        <input type="text" id="orderClientName" class="cart-form-input" placeholder="Seu nome completo" required>
+        <input type="text" id="orderAddress" class="cart-form-input" placeholder="Endereço de entrega ou retirada no balcão" required>
+        <select id="orderPayment" class="cart-form-input" required>
+          <option value="PIX">Pagamento via PIX</option>
+          <option value="Cartão de Crédito">Cartão de Crédito na Entrega/Balcão</option>
+          <option value="Cartão de Débito">Cartão de Débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+        </select>
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.9rem;">Confirmar Pedido na Loja</button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- MODAL DE AUTENTICAÇÃO E CONTA DE USUÁRIO (Criação de Usuário + Login) -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3 id="authModalTitle">Acesso à Barbearia Ursic</h3>
+        <button class="btn-icon" id="authCloseBtn">✕</button>
+      </div>
+
+      <!-- Abas de Troca entre Entrar e Criar Usuário -->
+      <div class="auth-tabs" id="authTabGroup">
+        <button class="auth-tab-btn active" id="tabRegisterBtn">Criar Minha Conta</button>
+        <button class="auth-tab-btn" id="tabLoginBtn">Já Tenho Conta</button>
+      </div>
+
+      <!-- Formulário: Criar Usuário -->
+      <form id="registerForm">
+        <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.3rem;">Nome Completo *</label>
+        <input type="text" id="regName" class="cart-form-input" placeholder="Ex: Gabriel Albuquerque" required>
+
+        <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.3rem;">E-mail *</label>
+        <input type="email" id="regEmail" class="cart-form-input" placeholder="seuemail@exemplo.com" required>
+
+        <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.3rem;">WhatsApp / Celular *</label>
+        <input type="tel" id="regPhone" class="cart-form-input" placeholder="(41) 98888-7777" required>
+
+        <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.3rem;">Crie uma Senha de Acesso *</label>
+        <input type="password" id="regPass" class="cart-form-input" placeholder="••••••••" required minlength="4">
+
+        <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.3rem;">Estilo de Corte Habitual</label>
+        <select id="regStyle" class="cart-form-input">
+          <option value="Degradê Baixo (Low Fade)">Degradê Baixo (Low Fade)</option>
+          <option value="Degradê Médio / Alto">Degradê Médio / Alto</option>
+          <option value="Corte Clássico na Tesoura">Corte Clássico na Tesoura</option>
+          <option value="Barba Desenhada e Modelada">Barba Desenhada e Modelada</option>
+        </select>
+
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; margin-top:0.8rem; padding:0.85rem;">Criar Conta e Acessar</button>
+      </form>
+
+      <!-- Formulário: Login de Usuário Cadastrado -->
+      <form id="loginForm" style="display:none;">
+        <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.3rem;">E-mail Cadastrado *</label>
+        <input type="email" id="loginEmail" class="cart-form-input" placeholder="seuemail@exemplo.com" required>
+
+        <label style="font-size:0.85rem; font-weight:600; display:block; margin-bottom:0.3rem;">Sua Senha *</label>
+        <input type="password" id="loginPass" class="cart-form-input" placeholder="••••••••" required>
+
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; margin-top:0.8rem; padding:0.85rem;">Entrar na Conta</button>
+      </form>
+
+      <!-- Painel do Usuário Logado -->
+      <div id="userLoggedView" style="display:none;">
+        <div style="background:var(--secondary); border-radius:14px; padding:1.25rem; margin-bottom:1.25rem;">
+          <div style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase;">Cliente Conectado</div>
+          <h3 id="loggedUserName" style="font-size:1.3rem; margin:0.3rem 0; color:var(--primary);">Nome</h3>
+          <p id="loggedUserEmail" style="font-size:0.85rem; color:var(--text-muted);">email@exemplo.com</p>
+          <p id="loggedUserPhone" style="font-size:0.85rem; color:var(--text-muted);">Telefone</p>
+          <p id="loggedUserStyle" style="font-size:0.85rem; color:var(--text); margin-top:0.4rem; font-weight:600;">Estilo: Degradê Baixo</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <button class="btn-primary" id="btnGoToAdminFromProfile" style="display:none; justify-content:center; background:var(--primary); color:#000;">Acessar Painel ADM</button>
+          <button class="btn-primary" id="btnGoToBookingFromProfile" style="justify-content:center;">Ir para Agendamento</button>
+          <button class="btn-outline" id="btnLogoutUser" style="justify-content:center; color:#ef4444; border-color:var(--surface-border);">Encerrar Sessão (Sair)</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast">Ação concluída com sucesso!</div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom:1rem;">
+            <span style="color:var(--primary)">URSIC</span>BARBER
+            <span class="logo-badge">4.9 ★</span>
+          </div>
+          <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; max-width:380px;">
+            A experiência de cuidado masculino de maior destaque no Seminário em Curitiba. Pontualidade, técnica e conforto com agendamento online direto no site.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#home" data-nav="home">Início</a></li>
+            <li><a href="#servicos" data-nav="servicos">Serviços & Pacotes</a></li>
+            <li><a href="#produtos" data-nav="produtos">Produtos & Cosméticos</a></li>
+            <li><a href="#agendamento" data-nav="agendamento">Agendamento Online</a></li>
+            <li><a href="#sobre" data-nav="sobre">Localização Real</a></li>
+            <li id="footerAdminLi" style="display: none;"><a href="#admin" data-nav="admin">Painel Administrativo</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Atendimento Oficial</h4>
+          <ul>
+            <li>R. Bpo. Dom José, 2550</li>
+            <li>Seminário, Curitiba - PR</li>
+            <li>Seg a Sex: 09:00 – 20:00</li>
+            <li>Sábado: 09:00 – 17:00</li>
+            <li>Google: 4.9 (348 avaliações)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        Barbearia Ursic © Seminário, Curitiba - PR. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT PURO E COMPLETO -->
+  <script>
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+    // Constante de autorização de Administrador único
+    const ADMIN_EMAIL = 'adm@adm.com';
+
+    function isCurrentAdmin() {
+      return (currentUser && currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL) || isAdminLoggedIn;
+    }
+
+    // Catálogo de Produtos
+    const PRODUCTS_DATA = [
+      { id: 1, cat: 'cabelo', name: 'Pomada Matte Clay Efeito Seco', price: 54.90, desc: 'Fixação forte e acabamento fosco natural sem brilho.', img: 'https://images.unsplash.com/photo-1597852074816-d933c7d2b988?auto=format&fit=crop&w=400&q=80' },
+      { id: 2, cat: 'cabelo', name: 'Pomada Modeladora Efeito Brilho Clássico', price: 49.90, desc: 'Base de água ideal para penteados clássicos tipo pompadour.', img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80' },
+      { id: 3, cat: 'barba', name: 'Óleo Hidratante para Barba Premium 30ml', price: 59.90, desc: 'Com óleo de argan e jojoba para maciez profunda dos fios.', img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80' },
+      { id: 4, cat: 'barba', name: 'Balm Multifuncional Alinhador 100g', price: 48.00, desc: 'Acalma a pele, reduz coceiras e disciplina os pelos rebeldes.', img: 'https://images.unsplash.com/photo-1608248597359-2e06180630ba?auto=format&fit=crop&w=400&q=80' },
+      { id: 5, cat: 'shaving', name: 'Shaving Gel Refrescante Transparente 300g', price: 39.90, desc: 'Facilita o deslizar da lâmina garantindo visibilidade total.', img: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80' },
+      { id: 6, cat: 'cabelo', name: 'Shampoo Mentolado Antiqueda Ursic 250ml', price: 44.00, desc: 'Estimula a microcirculação do couro cabeludo com frescor.', img: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=400&q=80' },
+      { id: 7, cat: 'barba', name: 'Shampoo Específico para Barba 140ml', price: 42.00, desc: 'Limpeza profunda sem ressecar a pele sensível do rosto.', img: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80' },
+      { id: 8, cat: 'shaving', name: 'Loção Pós-Barba Calmant com Aloe Vera', price: 46.50, desc: 'Cicatriza microcortes e fecha os poros imediatamente.', img: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=400&q=80' },
+      { id: 9, cat: 'cabelo', name: 'Pó Modelador de Volume Texturizador', price: 38.00, desc: 'Adiciona densidade e estrutura aos cabelos finos na raiz.', img: 'https://images.unsplash.com/photo-1512290900672-1f41d08779b5?auto=format&fit=crop&w=400&q=80' },
+      { id: 10, cat: 'barba', name: 'Pente de Madeira Anti-estático para Barba', price: 29.90, desc: 'Alinha sem quebrar e remove o frizz dos fios faciais.', img: 'https://images.unsplash.com/photo-1590159763121-7c9ff3149e0a?auto=format&fit=crop&w=400&q=80' }
+    ];
+
+    // Serviços Oferecidos
+    const SERVICES_DATA = [
+      { id: 's1', name: 'Corte Masculino Premium', price: 55, desc: 'Consultoria de visagismo, lavagem com shampoo revigorante e finalização.', time: '40 min' },
+      { id: 's2', name: 'Barboterapia Ursic com Vapor', price: 45, desc: 'Toalhas quentes, ozônio emoliente, lâmina descartável e massagem.', time: '35 min' },
+      { id: 's3', name: 'Combo Completo (Cabelo + Barba)', price: 90, desc: 'O ritual clássico completo com direito a café espresso cortesia.', time: '1h 10 min' },
+      { id: 's4', name: 'Corte Infantil Especializado', price: 50, desc: 'Paciência, técnica e ambiente amigável para os pequenos.', time: '35 min' },
+      { id: 's5', name: 'Camuflagem de Cabelo / Barba', price: 45, desc: 'Tonalização rápida dos fios brancos com aspecto 100% natural.', time: '25 min' },
+      { id: 's6', name: 'Design de Sobrancelha Masculina', price: 25, desc: 'Alinhamento limpo preservando a masculinidade das feições.', time: '15 min' }
+    ];
+
+    // Horários fixos para agendamento
+    const DEFAULT_TIME_SLOTS = [
+      '09:00', '09:45', '10:30', '11:15', '13:30', '14:15', '15:00', '15:45', '16:30', '17:15', '18:00', '18:45', '19:30'
+    ];
+
+    // Feriados Nacionais Brasileiros Recorrentes (MM-DD)
+    const NATIONAL_HOLIDAYS = [
+      { date: '01-01', name: 'Ano Novo (Confraternização Universal)' },
+      { date: '04-21', name: 'Tiradentes' },
+      { date: '05-01', name: 'Dia do Trabalhador' },
+      { date: '09-07', name: 'Independência do Brasil' },
+      { date: '10-12', name: 'Nossa Senhora Aparecida' },
+      { date: '11-02', name: 'Finados' },
+      { date: '11-15', name: 'Proclamação da República' },
+      { date: '11-20', name: 'Dia da Consciência Negra' },
+      { date: '12-25', name: 'Natal' }
+    ];
+
+    // Estado da Aplicação em LocalStorage
+    let currentUser = null;
+    let registeredUsers = [];
+    let savedAppointments = [];
+    let cart = [];
+    let isAdminLoggedIn = false;
+
+    // Regras de Expediente ADM
+    let adminSettings = {
+      closeOnHolidays: true,
+      closedDates: [
+        { date: '2025-12-24', reason: 'Véspera de Natal' },
+        { date: '2025-12-31', reason: 'Véspera de Ano Novo' }
+      ],
+      barberAbsences: [
+        { barber: 'Lucas Prado (Fade Specialist)', date: '2025-05-20', reason: 'Treinamento Técnico em SP' }
+      ]
+    };
+
+    try {
+      const u = localStorage.getItem('ursic_current_user');
+      if (u) currentUser = JSON.parse(u);
+
+      const dbUsers = localStorage.getItem('ursic_users_db');
+      if (dbUsers) registeredUsers = JSON.parse(dbUsers);
+      else {
+        registeredUsers = [
+          { id: 1, name: 'Administrador Ursic', email: 'adm@adm.com', phone: '(41) 99999-9999', pass: '12345', style: 'Corte Clássico na Tesoura' }
+        ];
+        try { localStorage.setItem('ursic_users_db', JSON.stringify(registeredUsers)); } catch(e) {}
+      }
+
+      // Garante que o usuário adm@adm.com exista no banco se não estiver presente
+      if (!registeredUsers.some(u => u.email.toLowerCase() === ADMIN_EMAIL)) {
+        registeredUsers.push({ id: 1, name: 'Administrador Ursic', email: 'adm@adm.com', phone: '(41) 99999-9999', pass: '12345', style: 'Corte Clássico na Tesoura' });
+        try { localStorage.setItem('ursic_users_db', JSON.stringify(registeredUsers)); } catch(e) {}
+      }
+
+      const dbAppts = localStorage.getItem('ursic_appointments_db');
+      if (dbAppts) savedAppointments = JSON.parse(dbAppts);
+      else {
+        savedAppointments = [
+          { id: 101, clientName: 'Gabriel Albuquerque', phone: '(41) 98888-7777', service: 'Corte Masculino Premium', barber: 'Matheus Ursic (Master Barber)', date: '2025-05-15', time: '14:15', status: 'Confirmado', notes: 'Fade navalhado' }
+        ];
+      }
+
+      const c = localStorage.getItem('ursic_cart');
+      if (c) cart = JSON.parse(c);
+
+      const admS = localStorage.getItem('ursic_admin_settings');
+      if (admS) adminSettings = JSON.parse(admS);
+
+      const admSess = sessionStorage.getItem('ursic_admin_session');
+      if (admSess === 'true') isAdminLoggedIn = true;
+    } catch(e) {}
+
+    // Toast
+    function showToast(msg) {
+      const toast = $('#toast');
+      if (!toast) return;
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    // Helper: Salvar configurações ADM
+    function saveAdminSettings() {
+      try {
+        localStorage.setItem('ursic_admin_settings', JSON.stringify(adminSettings));
+      } catch(e) {}
+    }
+
+    // Atualiza visibilidade dos acessos ADM (Apenas para adm@adm.com)
+    function updateAdminAccessVisibility() {
+      const hasAdmAccess = isCurrentAdmin();
+      const adminNavLi = $('#adminNavLi');
+      const adminHeaderBtn = $('#adminHeaderBtn');
+      const footerAdminLi = $('#footerAdminLi');
+      const btnGoToAdminProfile = $('#btnGoToAdminFromProfile');
+
+      if (adminNavLi) adminNavLi.style.display = hasAdmAccess ? 'block' : 'none';
+      if (adminHeaderBtn) adminHeaderBtn.style.display = hasAdmAccess ? 'inline-flex' : 'none';
+      if (footerAdminLi) footerAdminLi.style.display = hasAdmAccess ? 'block' : 'none';
+      if (btnGoToAdminProfile) btnGoToAdminProfile.style.display = (currentUser && currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL) ? 'block' : 'none';
+    }
+
+    // 1. Navegação SPA
+    function initNavigation() {
+      try {
+        const pages = $$('section[data-page]');
+        const mainMenu = $('#mainMenu');
+
+        function switchPage(pageId) {
+          if (!pageId) pageId = 'home';
+          pages.forEach(p => p.classList.toggle('active-page', p.dataset.page === pageId));
+          $$('.nav-link').forEach(link => {
+            link.classList.toggle('active', link.dataset.nav === pageId);
+          });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if (mainMenu) mainMenu.classList.remove('mobile-open');
+
+          if (pageId === 'admin') {
+            renderAdminDashboard();
+          }
+        }
+
+        document.addEventListener('click', (e) => {
+          const target = e.target.closest('[data-nav]');
+          if (target) {
+            e.preventDefault();
+            const pageId = target.getAttribute('data-nav');
+            window.location.hash = pageId;
+            switchPage(pageId);
+          }
+        });
+
+        window.addEventListener('hashchange', () => {
+          const hash = window.location.hash.replace('#', '');
+          if (hash) switchPage(hash);
+        });
+
+        if (window.location.hash) {
+          switchPage(window.location.hash.replace('#', ''));
+        }
+
+        const mobileBtn = $('#mobileMenuBtn');
+        if (mobileBtn && mainMenu) {
+          mobileBtn.addEventListener('click', () => {
+            mainMenu.classList.toggle('mobile-open');
+          });
+        }
+      } catch(e) {}
+    }
+
+    // 2. Sistema de Criação de Usuário e Autenticação
+    function initUserSystem() {
+      try {
+        const authModal = $('#authModal');
+        const authBtn = $('#authBtn');
+        const authCloseBtn = $('#authCloseBtn');
+        const tabReg = $('#tabRegisterBtn');
+        const tabLog = $('#tabLoginBtn');
+        const regForm = $('#registerForm');
+        const logForm = $('#loginForm');
+        const loggedView = $('#userLoggedView');
+        const authTabs = $('#authTabGroup');
+        const authTitle = $('#authModalTitle');
+        const navName = $('#navUserName');
+        const userIcon = $('#userIconDisplay');
+        const openFromBookNotice = $('#openAuthFromBooking');
+
+        function updateAuthHeaderUI() {
+          if (currentUser) {
+            if (navName) navName.innerText = currentUser.name.split(' ')[0];
+            if (userIcon) userIcon.innerText = (currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL) ? '👑' : '✅';
+            const nameInput = $('#obClientName');
+            const phoneInput = $('#obClientPhone');
+            if (nameInput && !nameInput.value) nameInput.value = currentUser.name;
+            if (phoneInput && !phoneInput.value) phoneInput.value = currentUser.phone;
+          } else {
+            if (navName) navName.innerText = 'Entrar / Criar Conta';
+            if (userIcon) userIcon.innerText = '👤';
+          }
+          updateAdminAccessVisibility();
+        }
+
+        function showRegisterTab() {
+          tabReg.classList.add('active');
+          tabLog.classList.remove('active');
+          regForm.style.display = 'block';
+          logForm.style.display = 'none';
+          loggedView.style.display = 'none';
+          authTabs.style.display = 'flex';
+          authTitle.innerText = 'Criar Nova Conta';
+        }
+
+        function showLoginTab() {
+          tabLog.classList.add('active');
+          tabReg.classList.remove('active');
+          regForm.style.display = 'none';
+          logForm.style.display = 'block';
+          loggedView.style.display = 'none';
+          authTabs.style.display = 'flex';
+          authTitle.innerText = 'Entrar na Sua Conta';
+        }
+
+        function showLoggedView() {
+          authTabs.style.display = 'none';
+          regForm.style.display = 'none';
+          logForm.style.display = 'none';
+          loggedView.style.display = 'block';
+          authTitle.innerText = 'Meu Painel do Cliente';
+
+          $('#loggedUserName').innerText = currentUser.name;
+          $('#loggedUserEmail').innerText = currentUser.email;
+          $('#loggedUserPhone').innerText = currentUser.phone;
+          $('#loggedUserStyle').innerText = `Estilo: ${currentUser.style || 'Não informado'}`;
+          updateAdminAccessVisibility();
+        }
+
+        function openModal() {
+          authModal.classList.add('open');
+          if (currentUser) showLoggedView();
+          else showRegisterTab();
+        }
+
+        function closeModal() {
+          authModal.classList.remove('open');
+        }
+
+        authBtn?.addEventListener('click', openModal);
+        openFromBookNotice?.addEventListener('click', openModal);
+        authCloseBtn?.addEventListener('click', closeModal);
+        authModal?.addEventListener('click', (e) => { if (e.target === authModal) closeModal(); });
+
+        tabReg?.addEventListener('click', showRegisterTab);
+        tabLog?.addEventListener('click', showLoginTab);
+
+        regForm?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = $('#regName').value.trim();
+          const email = $('#regEmail').value.trim().toLowerCase();
+          const phone = $('#regPhone').value.trim();
+          const pass = $('#regPass').value;
+          const style = $('#regStyle').value;
+
+          const exists = registeredUsers.find(u => u.email === email);
+          if (exists) {
+            alert('Este e-mail já possui cadastro. Use a aba "Já Tenho Conta" para entrar.');
+            showLoginTab();
+            $('#loginEmail').value = email;
+            return;
+          }
+
+          const newUser = { id: Date.now(), name, email, phone, pass, style };
+          registeredUsers.push(newUser);
+          currentUser = newUser;
+
+          try {
+            localStorage.setItem('ursic_users_db', JSON.stringify(registeredUsers));
+            localStorage.setItem('ursic_current_user', JSON.stringify(currentUser));
+          } catch(err) {}
+
+          updateAuthHeaderUI();
+          showToast(`Conta criada com sucesso! Bem-vindo, ${name.split(' ')[0]}!`);
+          showLoggedView();
+          regForm.reset();
+        });
+
+        logForm?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = $('#loginEmail').value.trim().toLowerCase();
+          const pass = $('#loginPass').value;
+
+          const user = registeredUsers.find(u => u.email === email && u.pass === pass);
+          if (!user) {
+            alert('E-mail ou senha incorretos. Caso ainda não tenha conta, clique em "Criar Minha Conta".');
+            return;
+          }
+
+          currentUser = user;
+          try {
+            localStorage.setItem('ursic_current_user', JSON.stringify(currentUser));
+          } catch(err) {}
+
+          if (user.email.toLowerCase() === ADMIN_EMAIL) {
+            isAdminLoggedIn = true;
+            try { sessionStorage.setItem('ursic_admin_session', 'true'); } catch(err) {}
+          }
+
+          updateAuthHeaderUI();
+          showToast(`Olá novamente, ${currentUser.name.split(' ')[0]}!`);
+          showLoggedView();
+          logForm.reset();
+        });
+
+        $('#btnLogoutUser')?.addEventListener('click', () => {
+          currentUser = null;
+          isAdminLoggedIn = false;
+          try {
+            localStorage.removeItem('ursic_current_user');
+            sessionStorage.removeItem('ursic_admin_session');
+          } catch(err) {}
+          updateAuthHeaderUI();
+          showToast('Você saiu da sua conta.');
+          closeModal();
+          if (window.location.hash === '#admin') {
+            window.location.hash = 'home';
+            $$('section[data-page]').forEach(p => p.classList.toggle('active-page', p.dataset.page === 'home'));
+          }
+        });
+
+        $('#btnGoToBookingFromProfile')?.addEventListener('click', () => {
+          closeModal();
+          window.location.hash = 'agendamento';
+          $$('section[data-page]').forEach(p => p.classList.toggle('active-page', p.dataset.page === 'agendamento'));
+        });
+
+        $('#btnGoToAdminFromProfile')?.addEventListener('click', () => {
+          closeModal();
+          window.location.hash = 'admin';
+          $$('section[data-page]').forEach(p => p.classList.toggle('active-page', p.dataset.page === 'admin'));
+        });
+
+        updateAuthHeaderUI();
+      } catch(e) {}
+    }
+
+    // 3. Sistema de Agendamento Online no Site integrado com Regras ADM
+    function initOnlineBookingSystem() {
+      try {
+        const form = $('#onlineBookingForm');
+        const dateInput = $('#obDateInput');
+        const barberSelect = $('#obBarberSelect');
+        const slotContainer = $('#slotPicker');
+        const selectedTimeHidden = $('#obSelectedTime');
+        const apptsListContainer = $('#appointmentsList');
+        const countSpan = $('#appointmentsCount');
+        const warningNotice = $('#bookingWarningNotice');
+        const warningText = $('#bookingWarningText');
+        const submitBtn = $('#obSubmitBtn');
+
+        const todayStr = new Date().toISOString().split('T')[0];
+        if (dateInput) {
+          dateInput.min = todayStr;
+          dateInput.value = todayStr;
+        }
+
+        // Valida se a barbearia fecha na data ou se o barbeiro está ausente
+        function checkDateAvailability(dateVal, barberVal) {
+          if (!dateVal) return { allowed: true };
+
+          const mmdd = dateVal.substring(5); // 'MM-DD'
+          
+          // 1. Feriados Nacionais
+          if (adminSettings.closeOnHolidays) {
+            const hol = NATIONAL_HOLIDAYS.find(h => h.date === mmdd);
+            if (hol) {
+              return { allowed: false, type: 'holiday', reason: `A barbearia não abre em feriados nacionais (${hol.name}). Selecione outro dia.` };
+            }
+          }
+
+          // 2. Barbearia não vai abrir (fechamento geral determinado pela ADM)
+          const shopClosed = adminSettings.closedDates.find(c => c.date === dateVal);
+          if (shopClosed) {
+            return { allowed: false, type: 'shop_closed', reason: `A Barbearia Ursic estará fechada nesta data por motivo de: "${shopClosed.reason}". Por favor escolha outra data.` };
+          }
+
+          // 3. Domingo (Fechado oficial)
+          const dayOfWeek = new Date(dateVal + 'T12:00:00').getDay();
+          if (dayOfWeek === 0) {
+            return { allowed: false, type: 'sunday', reason: 'Aos domingos a Barbearia Ursic permanece fechada para descanso da equipe.' };
+          }
+
+          // 4. Ausência de Barbeiro específico
+          if (barberVal && barberVal !== 'Qualquer Barbeiro Disponível') {
+            const absence = adminSettings.barberAbsences.find(a => a.date === dateVal && a.barber === barberVal);
+            if (absence) {
+              return { allowed: false, type: 'barber_absent', reason: `O profissional ${barberVal} não irá atender no dia ${dateVal.split('-').reverse().join('/')} (${absence.reason}). Por favor escolha outro barbeiro ou outra data.` };
+            }
+          }
+
+          return { allowed: true };
+        }
+
+        function saveAppointmentsToStorage() {
+          try {
+            localStorage.setItem('ursic_appointments_db', JSON.stringify(savedAppointments));
+          } catch(e) {}
+          renderAppointmentsList();
+          renderSlotsForSelectedDate();
+          if (isAdminLoggedIn) renderAdminDashboard();
+        }
+
+        // Renderiza horários livres / ocupados para a data selecionada
+        function renderSlotsForSelectedDate() {
+          if (!slotContainer) return;
+          const chosenDate = dateInput ? dateInput.value : todayStr;
+          const chosenBarber = barberSelect ? barberSelect.value : '';
+
+          const check = checkDateAvailability(chosenDate, chosenBarber);
+
+          if (!check.allowed) {
+            if (warningNotice && warningText) {
+              warningNotice.style.display = 'block';
+              warningText.innerText = check.reason;
+            }
+            slotContainer.innerHTML = `<p style="grid-column: 1/-1; color:#ef4444; font-size:0.85rem; padding: 0.5rem 0;">Sem horários disponíveis: ${check.reason}</p>`;
+            if (submitBtn) submitBtn.disabled = true;
+            selectedTimeHidden.value = '';
+            return;
+          } else {
+            if (warningNotice) warningNotice.style.display = 'none';
+            if (submitBtn) submitBtn.disabled = false;
+          }
+
+          // Horários agendados para a mesma data (e mesmo barbeiro se selecionado)
+          const bookedTimes = savedAppointments
+            .filter(a => a.date === chosenDate && a.status !== 'Cancelado' && (chosenBarber === 'Qualquer Barbeiro Disponível' || a.barber === chosenBarber || a.barber === 'Qualquer Barbeiro Disponível'))
+            .map(a => a.time);
+
+          slotContainer.innerHTML = DEFAULT_TIME_SLOTS.map(time => {
+            const isBooked = bookedTimes.includes(time);
+            return `
+              <div class="slot-pill ${isBooked ? 'disabled' : ''}" data-time="${time}">
+                ${time}
+              </div>
+            `;
+          }).join('');
+
+          selectedTimeHidden.value = '';
+        }
+
+        slotContainer?.addEventListener('click', (e) => {
+          const pill = e.target.closest('.slot-pill');
+          if (!pill || pill.classList.contains('disabled')) return;
+          
+          $$('.slot-pill', slotContainer).forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          selectedTimeHidden.value = pill.dataset.time;
+        });
+
+        dateInput?.addEventListener('change', renderSlotsForSelectedDate);
+        barberSelect?.addEventListener('change', renderSlotsForSelectedDate);
+        renderSlotsForSelectedDate();
+
+        // Renderiza lista de agendamentos salvos
+        function renderAppointmentsList() {
+          if (!apptsListContainer) return;
+
+          if (savedAppointments.length === 0) {
+            apptsListContainer.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); text-align:center; padding:1.5rem 0;">Nenhum agendamento ativo no momento.</p>`;
+            if (countSpan) countSpan.innerText = '0 agendados';
+            return;
+          }
+
+          if (countSpan) countSpan.innerText = `${savedAppointments.filter(a => a.status !== 'Cancelado').length} ativos`;
+
+          apptsListContainer.innerHTML = savedAppointments.map(a => `
+            <div class="appointment-card" data-appt-id="${a.id}">
+              <div>
+                <span class="status-badge ${a.status === 'Cancelado' ? 'canceled' : ''}">${a.status}</span>
+                <div style="font-weight:700; font-size:0.95rem; margin-top:0.4rem;">${a.service}</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">
+                  📅 ${a.date.split('-').reverse().join('/')} às <strong>${a.time}</strong> • ${a.barber.split(' ')[0]}
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">Cliente: ${a.clientName}</div>
+              </div>
+              <div>
+                ${a.status !== 'Cancelado' ? `
+                  <button class="btn-danger-outline cancel-appt-btn" data-appt-id="${a.id}">Cancelar</button>
+                ` : '<span style="font-size:0.75rem; color:#ef4444;">Cancelado</span>'}
+              </div>
+            </div>
+          `).reverse().join('');
+        }
+        renderAppointmentsList();
+
+        document.addEventListener('click', (e) => {
+          const cancelBtn = e.target.closest('.cancel-appt-btn');
+          if (cancelBtn) {
+            const apptId = parseInt(cancelBtn.dataset.apptId, 10);
+            if (confirm('Deseja realmente cancelar este horário? O slot será liberado no site.')) {
+              const targetAppt = savedAppointments.find(a => a.id === apptId);
+              if (targetAppt) {
+                targetAppt.status = 'Cancelado';
+                saveAppointmentsToStorage();
+                showToast('Agendamento cancelado com sucesso.');
+              }
+            }
+          }
+        });
+
+        form?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = $('#obClientName').value.trim();
+          const phone = $('#obClientPhone').value.trim();
+          const service = $('#obServiceSelect').value;
+          const barber = barberSelect.value;
+          const date = dateInput.value;
+          const time = selectedTimeHidden.value;
+          const notes = $('#obNotes').value.trim();
+
+          const check = checkDateAvailability(date, barber);
+          if (!check.allowed) {
+            alert(check.reason);
+            return;
+          }
+
+          if (!time) {
+            alert('Por favor, selecione um horário disponível na grade de horários.');
+            return;
+          }
+
+          const newAppointment = {
+            id: Date.now(),
+            clientName: name,
+            phone: phone,
+            service: service,
+            barber: barber,
+            date: date,
+            time: time,
+            notes: notes,
+            status: 'Confirmado',
+            userId: currentUser ? currentUser.id : null,
+            createdAt: new Date().toISOString()
+          };
+
+          savedAppointments.push(newAppointment);
+          saveAppointmentsToStorage();
+
+          showToast(`Horário agendado com sucesso para ${date.split('-').reverse().join('/')} às ${time}!`);
+          form.reset();
+          if (currentUser) {
+            $('#obClientName').value = currentUser.name;
+            $('#obClientPhone').value = currentUser.phone;
+          }
+          dateInput.value = todayStr;
+          renderSlotsForSelectedDate();
+        });
+
+      } catch(e) {}
+    }
+
+    // 4. Módulo da Área Administrativa (Exclusivo para adm@adm.com)
+    function initAdminSystem() {
+      try {
+        const adminBtn = $('#adminHeaderBtn');
+        const loginWrapper = $('#adminLoginWrapper');
+        const dashboardWrapper = $('#adminDashboardWrapper');
+        const deniedWrapper = $('#adminAccessDeniedWrapper');
+        const loginForm = $('#adminLoginForm');
+        const logoutBtn = $('#btnAdminLogout');
+        const holidayToggle = $('#admCloseOnHolidaysToggle');
+        const addShopCloseForm = $('#admAddShopClosedForm');
+        const addBarberAbsenceForm = $('#admAddBarberAbsenceForm');
+        const filterDateInput = $('#admFilterDate');
+        const clearFilterBtn = $('#admClearFilterDate');
+        const goAuthBtn = $('#adminGoAuthBtn');
+
+        function updateAdminView() {
+          updateAdminAccessVisibility();
+
+          // Se estiver logado como adm@adm.com
+          if (currentUser && currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL) {
+            if (deniedWrapper) deniedWrapper.style.display = 'none';
+            if (loginWrapper) loginWrapper.style.display = 'none';
+            if (dashboardWrapper) dashboardWrapper.style.display = 'block';
+            renderAdminDashboard();
+            return;
+          }
+
+          // Se sessão admin foi aberta separadamente com adm@adm.com
+          if (isAdminLoggedIn) {
+            if (deniedWrapper) deniedWrapper.style.display = 'none';
+            if (loginWrapper) loginWrapper.style.display = 'none';
+            if (dashboardWrapper) dashboardWrapper.style.display = 'block';
+            renderAdminDashboard();
+            return;
+          }
+
+          // Se tem um usuário comum logado (diferente de adm@adm.com)
+          if (currentUser && currentUser.email && currentUser.email.toLowerCase() !== ADMIN_EMAIL) {
+            if (deniedWrapper) deniedWrapper.style.display = 'block';
+            if (loginWrapper) loginWrapper.style.display = 'none';
+            if (dashboardWrapper) dashboardWrapper.style.display = 'none';
+            return;
+          }
+
+          // Nenhum usuário logado: exibe tela de login para adm@adm.com
+          if (deniedWrapper) deniedWrapper.style.display = 'none';
+          if (loginWrapper) loginWrapper.style.display = 'block';
+          if (dashboardWrapper) dashboardWrapper.style.display = 'none';
+        }
+
+        adminBtn?.addEventListener('click', () => {
+          window.location.hash = 'admin';
+          $$('section[data-page]').forEach(p => p.classList.toggle('active-page', p.dataset.page === 'admin'));
+          $$('.nav-link').forEach(link => link.classList.toggle('active', link.dataset.nav === 'admin'));
+          updateAdminView();
+        });
+
+        goAuthBtn?.addEventListener('click', () => {
+          const authModal = $('#authModal');
+          if (authModal) authModal.classList.add('open');
+          const tabLog = $('#tabLoginBtn');
+          if (tabLog) tabLog.click();
+          const logEmail = $('#loginEmail');
+          if (logEmail) logEmail.value = ADMIN_EMAIL;
+        });
+
+        // Formulário de Login ADM com restrição a adm@adm.com
+        loginForm?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = $('#admUserInput').value.trim().toLowerCase();
+          const pass = $('#admPassInput').value.trim();
+
+          if (email !== ADMIN_EMAIL) {
+            alert('Acesso negado! Apenas Adiministrador tem permissão para visualizar o Painel ADM.');
+            return;
+          }
+
+          if (pass === '12345') {
+            isAdminLoggedIn = true;
+            try { sessionStorage.setItem('ursic_admin_session', 'true'); } catch(err) {}
+            
+            // Sincroniza usuário logado se não houver um
+            if (!currentUser || currentUser.email.toLowerCase() !== ADMIN_EMAIL) {
+              const admFound = registeredUsers.find(u => u.email.toLowerCase() === ADMIN_EMAIL);
+              currentUser = admFound || { id: 1, name: 'Administrador Ursic', email: 'adm@adm.com', phone: '(41) 99999-9999', style: 'Corte Clássico' };
+              try { localStorage.setItem('ursic_current_user', JSON.stringify(currentUser)); } catch(err) {}
+              const navName = $('#navUserName');
+              if (navName) navName.innerText = 'Administrador';
+              const userIcon = $('#userIconDisplay');
+              if (userIcon) userIcon.innerText = '👑';
+            }
+
+            showToast('Painel ADM desbloqueado com sucesso!');
+            loginForm.reset();
+            updateAdminView();
+          } else {
+            alert('Login ou senha incorretos');
+          }
+        });
+
+        // Logout ADM
+        logoutBtn?.addEventListener('click', () => {
+          isAdminLoggedIn = false;
+          try { sessionStorage.removeItem('ursic_admin_session'); } catch(err) {}
+          if (currentUser && currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL) {
+            currentUser = null;
+            try { localStorage.removeItem('ursic_current_user'); } catch(err) {}
+            const navName = $('#navUserName');
+            if (navName) navName.innerText = 'Entrar / Criar Conta';
+            const userIcon = $('#userIconDisplay');
+            if (userIcon) userIcon.innerText = '👤';
+          }
+          showToast('Sessão administrativa encerrada.');
+          updateAdminView();
+          window.location.hash = 'home';
+          $$('section[data-page]').forEach(p => p.classList.toggle('active-page', p.dataset.page === 'home'));
+          $$('.nav-link').forEach(link => link.classList.toggle('active', link.dataset.nav === 'home'));
+        });
+
+        // Alternância: Fechar em Feriados
+        if (holidayToggle) {
+          holidayToggle.checked = adminSettings.closeOnHolidays;
+          holidayToggle.addEventListener('change', () => {
+            adminSettings.closeOnHolidays = holidayToggle.checked;
+            saveAdminSettings();
+            showToast(`Regra atualizada: Barbearia ${holidayToggle.checked ? 'FECHA' : 'ABRE'} em feriados.`);
+            renderAdminDashboard();
+            const dInput = $('#obDateInput');
+            if (dInput) dInput.dispatchEvent(new Event('change'));
+          });
+        }
+
+        // Adicionar dia em que a barbearia NÃO vai abrir
+        addShopCloseForm?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const date = $('#admShopCloseDate').value;
+          const reason = $('#admShopCloseReason').value.trim();
+
+          if (adminSettings.closedDates.some(c => c.date === date)) {
+            alert('Esta data já foi marcada como fechada.');
+            return;
+          }
+
+          adminSettings.closedDates.push({ date, reason });
+          saveAdminSettings();
+          showToast(`Fechamento da barbearia salvo para o dia ${date.split('-').reverse().join('/')}!`);
+          addShopCloseForm.reset();
+          renderAdminDashboard();
+          const dInput = $('#obDateInput');
+          if (dInput) dInput.dispatchEvent(new Event('change'));
+        });
+
+        // Adicionar ausência de barbeiro
+        addBarberAbsenceForm?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const barber = $('#admAbsenceBarberSelect').value;
+          const date = $('#admAbsenceDate').value;
+          const reason = $('#admAbsenceReason').value.trim();
+
+          if (!barber || !date) return;
+
+          adminSettings.barberAbsences.push({ barber, date, reason });
+          saveAdminSettings();
+          showToast(`Ausência registrada: ${barber} não irá no dia ${date.split('-').reverse().join('/')}.`);
+          addBarberAbsenceForm.reset();
+          renderAdminDashboard();
+          const dInput = $('#obDateInput');
+          if (dInput) dInput.dispatchEvent(new Event('change'));
+        });
+
+        // Delegação para remover dia fechado ou ausência
+        document.addEventListener('click', (e) => {
+          const remShopBtn = e.target.closest('.remove-shop-closed-btn');
+          if (remShopBtn) {
+            const date = remShopBtn.dataset.date;
+            adminSettings.closedDates = adminSettings.closedDates.filter(c => c.date !== date);
+            saveAdminSettings();
+            showToast('Dia de fechamento removido. A barbearia voltará a aceitar agendamentos.');
+            renderAdminDashboard();
+            const dInput = $('#obDateInput');
+            if (dInput) dInput.dispatchEvent(new Event('change'));
+          }
+
+          const remAbsenceBtn = e.target.closest('.remove-barber-absence-btn');
+          if (remAbsenceBtn) {
+            const idx = parseInt(remAbsenceBtn.dataset.index, 10);
+            adminSettings.barberAbsences.splice(idx, 1);
+            saveAdminSettings();
+            showToast('Ausência de barbeiro removida.');
+            renderAdminDashboard();
+            const dInput = $('#obDateInput');
+            if (dInput) dInput.dispatchEvent(new Event('change'));
+          }
+
+          // Ações ADM sobre agendamentos (Confirmar / Cancelar)
+          const admStatusBtn = e.target.closest('.adm-change-status-btn');
+          if (admStatusBtn) {
+            const id = parseInt(admStatusBtn.dataset.id, 10);
+            const newStatus = admStatusBtn.dataset.status;
+            const target = savedAppointments.find(a => a.id === id);
+            if (target) {
+              target.status = newStatus;
+              try { localStorage.setItem('ursic_appointments_db', JSON.stringify(savedAppointments)); } catch(err) {}
+              showToast(`Status do agendamento alterado para: ${newStatus}`);
+              renderAdminDashboard();
+              const dInput = $('#obDateInput');
+              if (dInput) dInput.dispatchEvent(new Event('change'));
+            }
+          }
+        });
+
+        // Filtro por data na tabela ADM
+        filterDateInput?.addEventListener('change', () => {
+          renderAdminDashboard(filterDateInput.value);
+        });
+
+        clearFilterBtn?.addEventListener('click', () => {
+          if (filterDateInput) filterDateInput.value = '';
+          renderAdminDashboard();
+        });
+
+        updateAdminView();
+      } catch(e) {}
+    }
+
+    // Renderiza dados do painel ADM
+    function renderAdminDashboard(filterDate = '') {
+      try {
+        const totalEl = $('#admStatTotal');
+        const confirmedEl = $('#admStatConfirmed');
+        const holidayStatEl = $('#admStatHolidays');
+        const closedListEl = $('#admClosedShopList');
+        const absenceListEl = $('#admBarbersAbsenceList');
+        const tableBody = $('#admAppointmentsTableBody');
+
+        if (totalEl) totalEl.innerText = savedAppointments.length;
+        if (confirmedEl) confirmedEl.innerText = savedAppointments.filter(a => a.status === 'Confirmado').length;
+        if (holidayStatEl) holidayStatEl.innerText = adminSettings.closeOnHolidays ? 'Fechado nos feriados' : 'Aberto nos feriados';
+
+        // Renderiza lista de dias fechados
+        if (closedListEl) {
+          if (adminSettings.closedDates.length === 0) {
+            closedListEl.innerHTML = `<span style="font-size:0.8rem; color:var(--text-muted);">Nenhum dia de fechamento geral cadastrado.</span>`;
+          } else {
+            closedListEl.innerHTML = adminSettings.closedDates.map(c => `
+              <div class="date-tag">
+                <span>📍 ${c.date.split('-').reverse().join('/')} (${c.reason})</span>
+                <button class="remove-shop-closed-btn" data-date="${c.date}" title="Remover fechamento">✕</button>
+              </div>
+            `).join('');
+          }
+        }
+
+        // Renderiza lista de ausências de barbeiros
+        if (absenceListEl) {
+          if (adminSettings.barberAbsences.length === 0) {
+            absenceListEl.innerHTML = `<div style="color:var(--text-muted); padding:0.4rem;">Nenhuma ausência registrada. Toda a equipe ativa.</div>`;
+          } else {
+            absenceListEl.innerHTML = adminSettings.barberAbsences.map((ab, idx) => `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:0.4rem 0; border-bottom:1px solid var(--surface-border);">
+                <div>
+                  <strong>${ab.barber}</strong> não vai no dia <strong>${ab.date.split('-').reverse().join('/')}</strong>
+                  <div style="font-size:0.75rem; color:var(--text-muted);">Motivo: ${ab.reason}</div>
+                </div>
+                <button class="btn-danger-outline remove-barber-absence-btn" data-index="${idx}" style="font-size:0.7rem; padding:2px 6px;">Remover</button>
+              </div>
+            `).join('');
+          }
+        }
+
+        // Renderiza Tabela de agendamentos
+        if (tableBody) {
+          let list = savedAppointments;
+          if (filterDate) {
+            list = list.filter(a => a.date === filterDate);
+          }
+
+          if (list.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--text-muted);">Nenhum agendamento encontrado para o filtro aplicado.</td></tr>`;
+            return;
+          }
+
+          tableBody.innerHTML = list.map(a => `
+            <tr>
+              <td>
+                <strong>${a.date.split('-').reverse().join('/')}</strong><br>
+                <span style="color:var(--primary); font-weight:700;">${a.time}</span>
+              </td>
+              <td>
+                <strong>${a.clientName}</strong>
+                ${a.notes ? `<div style="font-size:0.75rem; color:var(--text-muted);">Obs: ${a.notes}</div>` : ''}
+              </td>
+              <td>${a.phone}</td>
+              <td>${a.service}</td>
+              <td>${a.barber}</td>
+              <td>
+                <span class="status-badge ${a.status === 'Cancelado' ? 'canceled' : ''}">${a.status}</span>
+              </td>
+              <td>
+                <div style="display:flex; gap:0.4rem;">
+                  ${a.status !== 'Confirmado' ? `
+                    <button class="btn-primary adm-change-status-btn" data-id="${a.id}" data-status="Confirmado" style="padding:4px 8px; font-size:0.7rem;">Aprovar</button>
+                  ` : ''}
+                  ${a.status !== 'Cancelado' ? `
+                    <button class="btn-danger-outline adm-change-status-btn" data-id="${a.id}" data-status="Cancelado" style="padding:4px 8px; font-size:0.7rem;">Cancelar</button>
+                  ` : ''}
+                </div>
+              </td>
+            </tr>
+          `).reverse().join('');
+        }
+      } catch(e) {}
+    }
+
+    // 5. Hero Selector Interativo
+    function initHeroSelector() {
+      try {
+        const chips = $$('#heroChips .chip');
+        const title = $('#heroPreviewTitle');
+        const desc = $('#heroPreviewDesc');
+        const details = {
+          corte: { title: 'Corte Degradê na Navalha', desc: 'Técnica apurada, visagismo e finalização premium.' },
+          barba: { title: 'Barboterapia com Toalha Quente', desc: 'Vapor de ozônio, hidratação profunda e lâmina suave.' },
+          combo: { title: 'Combo Signature (Corte + Barba)', desc: 'Alinhamento completo do visual com economia e conforto.' },
+          evento: { title: 'Pacote Noivo & Confraria', desc: 'Atendimento exclusivo para momentos especiais e fotos marcantes.' }
+        };
+
+        chips.forEach(chip => {
+          chip.addEventListener('click', () => {
+            chips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            const data = details[chip.dataset.role];
+            if (data && title && desc) {
+              title.innerText = data.title;
+              desc.innerText = data.desc;
+            }
+          });
+        });
+      } catch(e) {}
+    }
+
+    // 6. Mini Quiz de Recomendação
+    function initQuiz() {
+      try {
+        const steps = $$('.quiz-step');
+        let answers = [];
+        
+        $$('.quiz-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            answers.push(btn.getAttribute('data-answer'));
+            const currentStep = btn.closest('.quiz-step');
+            const stepNum = parseInt(currentStep.dataset.step, 10);
+            
+            currentStep.classList.remove('active');
+            if (stepNum < 3) {
+              const nextStep = $(`.quiz-step[data-step="${stepNum + 1}"]`);
+              if (nextStep) nextStep.classList.add('active');
+            } else {
+              const resultStep = $(`.quiz-step[data-step="result"]`);
+              if (resultStep) resultStep.classList.add('active');
+            }
+          });
+        });
+
+        const resetBtn = $('#quizReset');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            answers = [];
+            steps.forEach(s => s.classList.remove('active'));
+            const step1 = $('.quiz-step[data-step="1"]');
+            if (step1) step1.classList.add('active');
+          });
+        }
+
+        const sendBtn = $('#quizSendBooking');
+        if (sendBtn) {
+          sendBtn.addEventListener('click', () => {
+            window.location.hash = 'agendamento';
+            $$('section[data-page]').forEach(p => p.classList.toggle('active-page', p.dataset.page === 'agendamento'));
+            const sel = $('#obServiceSelect');
+            if (sel) sel.value = 'Combo Completo (Cabelo + Barba)';
+            showToast('Recomendação selecionada no formulário de agendamento!');
+          });
+        }
+      } catch(e) {}
+    }
+
+    // 7. Calculadora de Pacotes em Tempo Real
+    function initCalculator() {
+      try {
+        const container = $('#calcChecklist');
+        const totalEl = $('#calcTotalValue');
+        const countEl = $('#calcSelectedCount');
+        const bookBtn = $('#calcBookBtn');
+
+        function updateCalc() {
+          const checked = $$('#calcChecklist input:checked');
+          let sum = 0;
+          let names = [];
+          checked.forEach(inp => {
+            sum += parseFloat(inp.value);
+            names.push(inp.dataset.name);
+            inp.closest('.calc-item').classList.add('checked');
+          });
+          $$('#calcChecklist input:not(:checked)').forEach(inp => {
+            inp.closest('.calc-item').classList.remove('checked');
+          });
+
+          if (totalEl) totalEl.innerText = `R$ ${sum.toFixed(2).replace('.', ',')}`;
+          if (countEl) countEl.innerText = `${checked.length} serviços selecionados`;
+
+          return { sum, names };
+        }
+
+        if (container) {
+          container.addEventListener('change', updateCalc);
+          updateCalc();
+        }
+
+        if (bookBtn) {
+          bookBtn.addEventListener('click', () => {
+            window.location.hash = 'agendamento';
+            $$('section[data-page]').forEach(p => p.classList.toggle('active-page', p.dataset.page === 'agendamento'));
+            showToast('Selecione seu barbeiro e data para finalizar a reserva!');
+          });
+        }
+      } catch(e) {}
+    }
+
+    // 8. Comparador Antes/Depois
+    function initCompareSlider() {
+      try {
+        const wrapper = $('#compareSlider');
+        const overlay = $('#compareOverlay');
+        const handle = $('#compareHandle');
+        if (!wrapper || !overlay || !handle) return;
+
+        let active = false;
+        function slide(x) {
+          const rect = wrapper.getBoundingClientRect();
+          let pos = ((x - rect.left) / rect.width) * 100;
+          if (pos < 5) pos = 5;
+          if (pos > 95) pos = 95;
+          overlay.style.width = pos + '%';
+          handle.style.left = pos + '%';
+        }
+
+        wrapper.addEventListener('mousedown', () => active = true);
+        window.addEventListener('mouseup', () => active = false);
+        window.addEventListener('mousemove', e => { if (active) slide(e.clientX); });
+
+        wrapper.addEventListener('touchstart', () => active = true);
+        window.addEventListener('touchend', () => active = false);
+        window.addEventListener('touchmove', e => { if (active && e.touches[0]) slide(e.touches[0].clientX); });
+      } catch(e) {}
+    }
+
+    // 9. Flip Cards
+    function initFlipCards() {
+      try {
+        $$('.flip-card').forEach(card => {
+          card.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+          });
+        });
+      } catch(e) {}
+    }
+
+    // 10. Timeline de Etapas
+    function initTimeline() {
+      try {
+        const tabs = $$('#timelineTabs .timeline-tab');
+        const stepNum = $('#tlStepNumber');
+        const stepTitle = $('#tlStepTitle');
+        const stepText = $('#tlStepText');
+        const stepImg = $('#tlStepImg');
+
+        const timelineData = {
+          '1': {
+            num: 'ETAPA 01',
+            title: 'Diagnóstico & Alinhamento de Expectativas',
+            text: 'Antes de tocar nos fios, conversamos sobre seu gosto e estilo. Analisamos o formato do rosto e caimento do cabelo para um corte feito para você.',
+            img: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=500&q=80'
+          },
+          '2': {
+            num: 'ETAPA 02',
+            title: 'Execução Técnica & Fade Cirúrgico',
+            text: 'Corte minucioso usando técnicas de tesoura sobre pente e transições perfeitas no degradê, sem marcas e com alinhamento das costeiras.',
+            img: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=500&q=80'
+          },
+          '3': {
+            num: 'ETAPA 03',
+            title: 'Ritual de Barboterapia & Toalha Quente',
+            text: 'Aplicação de óleo essencial protetor, toalhas aquecidas com vapor de ozônio para amaciar a barba e navalha descartada na sua presença.',
+            img: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=500&q=80'
+          },
+          '4': {
+            num: 'ETAPA 04',
+            title: 'Finalização & Consultoria de Manutenção',
+            text: 'Aplicação de tônico refrescante, pomada de acabamento e recomendações precisas dos produtos corretos para você manter o estilo em casa.',
+            img: 'https://images.unsplash.com/photo-1517832606589-7629c3397143?auto=format&fit=crop&w=500&q=80'
+          }
+        };
+
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            const data = timelineData[tab.dataset.step];
+            if (data && stepNum && stepTitle && stepText && stepImg) {
+              stepNum.innerText = data.num;
+              stepTitle.innerText = data.title;
+              stepText.innerText = data.text;
+              stepImg.src = data.img;
+            }
+          });
+        });
+      } catch(e) {}
+    }
+
+    // 11. FAQ com Busca em Tempo Real
+    function initFaq() {
+      try {
+        const input = $('#faqSearchInput');
+        const items = $$('#faqAccordion .faq-item');
+
+        if (input) {
+          input.addEventListener('input', () => {
+            const q = input.value.toLowerCase().trim();
+            items.forEach(item => {
+              const text = (item.dataset.keywords + ' ' + item.innerText).toLowerCase();
+              item.style.display = text.includes(q) ? 'block' : 'none';
+            });
+          });
+        }
+
+        items.forEach(item => {
+          const trigger = item.querySelector('.faq-q');
+          if (trigger) {
+            trigger.addEventListener('click', () => {
+              const isOpen = item.classList.contains('open');
+              items.forEach(i => i.classList.remove('open'));
+              if (!isOpen) item.classList.add('open');
+            });
+          }
+        });
+      } catch(e) {}
+    }
+
+    // 12. Loja, Produtos e Carrinho
+    function initStoreAndCart() {
+      try {
+        const prodGrid = $('#productsGrid');
+        const servGrid = $('#servicesGrid');
+        const filterBtns = $$('#productFilterButtons .chip');
+
+        if (servGrid) {
+          servGrid.innerHTML = SERVICES_DATA.map(s => `
+            <div class="item-card">
+              <div class="item-body">
+                <span style="font-size:0.75rem; color:var(--primary); font-weight:700;">⏱️ ${s.time}</span>
+                <div class="item-title" style="margin-top:0.4rem;">${s.name}</div>
+                <div class="item-desc">${s.desc}</div>
+                <div class="item-foot">
+                  <div class="item-price">R$ ${s.price.toFixed(2).replace('.', ',')}</div>
+                  <button class="btn-primary service-book-btn" data-service-name="${s.name}" data-nav="agendamento">Agendar Online</button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        document.addEventListener('click', (e) => {
+          const btn = e.target.closest('.service-book-btn');
+          if (btn) {
+            const sName = btn.dataset.serviceName;
+            const sel = $('#obServiceSelect');
+            if (sel) sel.value = sName;
+          }
+        });
+
+        function renderProducts(cat = 'all') {
+          if (!prodGrid) return;
+          const filtered = cat === 'all' ? PRODUCTS_DATA : PRODUCTS_DATA.filter(p => p.cat === cat);
+          prodGrid.innerHTML = filtered.map(p => `
+            <div class="item-card">
+              <img class="item-img" src="${p.img}" alt="${p.name}">
+              <div class="item-body">
+                <div class="item-title">${p.name}</div>
+                <div class="item-desc">${p.desc}</div>
+                <div class="item-foot">
+                  <div class="item-price">R$ ${p.price.toFixed(2).replace('.', ',')}</div>
+                  <button class="btn-primary add-to-cart-btn" data-product-id="${p.id}">+ Carrinho</button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+        renderProducts('all');
+
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts(btn.dataset.cat);
+          });
+        });
+
+        const badge = $('#cartBadge');
+        const subtotalEl = $('#cartSubtotal');
+        const cartList = $('#cartItemsList');
+        const overlay = $('#cartOverlay');
+        const drawer = $('#cartDrawer');
+
+        function saveCart() {
+          try { localStorage.setItem('ursic_cart', JSON.stringify(cart)); } catch(e) {}
+          updateCartUI();
+        }
+
+        function updateCartUI() {
+          const totalQty = cart.reduce((acc, it) => acc + it.qty, 0);
+          if (badge) badge.innerText = totalQty;
+
+          const sum = cart.reduce((acc, it) => acc + (it.price * it.qty), 0);
+          if (subtotalEl) subtotalEl.innerText = `R$ ${sum.toFixed(2).replace('.', ',')}`;
+
+          if (!cartList) return;
+          if (cart.length === 0) {
+            cartList.innerHTML = `<div style="text-align:center; color:var(--text-muted); margin-top:3rem;">Seu carrinho está vazio. Adicione produtos na loja.</div>`;
+            return;
+          }
+
+          cartList.innerHTML = cart.map(item => `
+            <div class="cart-item">
+              <img src="${item.img}" style="width:48px; height:48px; border-radius:8px; object-fit:cover;" alt="${item.name}">
+              <div class="cart-item-info">
+                <div style="font-weight:700; font-size:0.85rem;">${item.name}</div>
+                <div style="font-size:0.8rem; color:var(--primary);">R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')}</div>
+                <div class="cart-qty-ctrl">
+                  <button class="cart-qty-btn cart-qty-minus" data-id="${item.id}">-</button>
+                  <span style="font-size:0.85rem; font-weight:700;">${item.qty}</span>
+                  <button class="cart-qty-btn cart-qty-plus" data-id="${item.id}">+</button>
+                  <button class="cart-qty-btn cart-remove-item" data-id="${item.id}" style="color:#ef4444; margin-left:auto;">🗑</button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+        updateCartUI();
+
+        document.addEventListener('click', (e) => {
+          const addBtn = e.target.closest('.add-to-cart-btn');
+          if (addBtn) {
+            const pId = parseInt(addBtn.dataset.productId, 10);
+            const product = PRODUCTS_DATA.find(p => p.id === pId);
+            if (product) {
+              const existing = cart.find(i => i.id === pId);
+              if (existing) existing.qty += 1;
+              else cart.push({ ...product, qty: 1 });
+              saveCart();
+              showToast(`${product.name} adicionado ao carrinho!`);
+            }
+          }
+
+          const plusBtn = e.target.closest('.cart-qty-plus');
+          if (plusBtn) {
+            const id = parseInt(plusBtn.dataset.id, 10);
+            const it = cart.find(i => i.id === id);
+            if (it) { it.qty += 1; saveCart(); }
+          }
+
+          const minusBtn = e.target.closest('.cart-qty-minus');
+          if (minusBtn) {
+            const id = parseInt(minusBtn.dataset.id, 10);
+            const it = cart.find(i => i.id === id);
+            if (it) {
+              it.qty -= 1;
+              if (it.qty <= 0) cart = cart.filter(i => i.id !== id);
+              saveCart();
+            }
+          }
+
+          const remBtn = e.target.closest('.cart-remove-item');
+          if (remBtn) {
+            const id = parseInt(remBtn.dataset.id, 10);
+            cart = cart.filter(i => i.id !== id);
+            saveCart();
+          }
+        });
+
+        const openCart = () => { overlay.classList.add('open'); drawer.classList.add('open'); };
+        const closeCart = () => { overlay.classList.remove('open'); drawer.classList.remove('open'); };
+        
+        $('#cartOpenBtn')?.addEventListener('click', openCart);
+        $('#cartCloseBtn')?.addEventListener('click', closeCart);
+        overlay?.addEventListener('click', closeCart);
+
+        $('#cartCheckoutForm')?.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (cart.length === 0) {
+            alert('Adicione ao menos um item ao carrinho.');
+            return;
+          }
+          const name = $('#orderClientName').value;
+          const sum = cart.reduce((acc, it) => acc + (it.price * it.qty), 0);
+
+          showToast(`Pedido de R$ ${sum.toFixed(2)} registrado com sucesso para ${name}!`);
+          cart = [];
+          saveCart();
+          closeCart();
+        });
+
+      } catch(e) {}
+    }
+
+    // 13. Tema Claro / Escuro
+    function initTheme() {
+      try {
+        const themeBtn = $('#themeToggle');
+        const body = document.body;
+
+        try {
+          const savedTheme = localStorage.getItem('ursic_theme');
+          if (savedTheme) body.setAttribute('data-theme', savedTheme);
+        } catch(e) {}
+
+        themeBtn?.addEventListener('click', () => {
+          const current = body.getAttribute('data-theme');
+          const next = current === 'dark' ? 'light' : 'dark';
+          body.setAttribute('data-theme', next);
+          try { localStorage.setItem('ursic_theme', next); } catch(e) {}
+        });
+      } catch(e) {}
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavigation();
+      initUserSystem();
+      initOnlineBookingSystem();
+      initAdminSystem();
+      initHeroSelector();
+      initQuiz();
+      initCalculator();
+      initCompareSlider();
+      initFlipCards();
+      initTimeline();
+      initFaq();
+      initStoreAndCart();
+      initTheme();
+      updateAdminAccessVisibility();
+    });
+  </script>
+</body>
+</html>
